@@ -1,0 +1,197 @@
+% --------------------------------------------------------------------------
+%\documentclass[onecolumn,11pt]{ieeetran}
+%\documentclass[draft]{siamltex}
+\documentclass[11pt]{article}
+\usepackage{graphics,stfloats,amssymb,amsmath,amsfonts,epsfig}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{hyperref}
+\usepackage{verbatim}
+%\usepackage[named]{algo}
+
+% Example definitions
+% -------------------
+\def\x{{\mathbf x}}
+\def\L{{\cal L}}
+\def\half{\frac{1}{2}}
+\def\alphamax{\alpha_{\mbox{\tiny max}}}
+\def\alphamin{\alpha_{\mbox{\tiny min}}}
+
+
+% more useful abbreviations
+% -------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\btheta}{\mbox{\boldmath $\theta$}}
+\newcommand{\bgamma}{\mbox{\boldmath $\gamma$}}
+\newcommand{\bbeta}{\mbox{\boldmath  $\beta$}}
+\newcommand{\balpha}{\mbox{\boldmath $\alpha$}}
+\newcommand{\bDelta}{\mbox{\boldmath $\Delta$}}
+\newcommand{\bdelta}{\mbox{\boldmath $\delta$}}
+\newcommand{\bPsi}{\mbox{\boldmath   $\Psi$}}
+\newcommand{\bphi}{\mbox{\boldmath   $\phi$}}
+\newcommand{\bpi}{\mbox{\boldmath    $\pi$}}
+\newcommand{\btau}{\mbox{\boldmath   $\tau$}}
+\newcommand{\blambda}{\mbox{\boldmath $\lambda$}}
+\newcommand{\bTheta}{\mbox{\boldmath $\Theta$}}
+\newcommand{\bone}{\mbox{\boldmath   $1$}}
+\newcommand{\Loewner}[0]{\preceq}
+\newcommand{\Hessmat}{{\cal H}}
+\newcommand{\Bmat}{{\bf B}}
+\newcommand{\Amat}{{\bf A}}
+\newcommand{\bx}{{\bf x}}
+\newcommand{\gradv}{{\bf g}}
+\newcommand{\cG}{{\cal G}}
+\newcommand{\cS}{{\cal S}}
+\newcommand{\cT}{{\cal T}}
+\newcommand{\trace}{\mbox{\rm trace}}
+\newcommand{\tv}{\tilde{v}}
+\newcommand{\gammaC}{\gamma_C}
+
+\def\noprint#1{}
+\def\swcomment#1{{\em [SW: #1]}}
+\def\dmcomment#1{{\em [DM: #1]}}
+\def\swresolved#1{}
+\def\dmresolved#1{}
+\def\sparsa{SpaRSA\ }
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\beq{\begin{equation}}
+\def\eeq{\end{equation}}
+\def\eqnok#1{(\ref{#1})}
+
+% theorem environments
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{corollary}[theorem]{Corollary}
+
+% baselinestretch definition is important!!
+% \renewcommand{\baselinestretch}{1.565}
+
+% \ninept
+
+% Title.
+% ------
+\title{EECS 451 Fall 2013 HW 8 \\
+ \hspace{1.2cm} Due November 12}
+ \date{}
+
+\begin{document}
+%\ninept
+%
+\maketitle
+
+After a genuine attempt to solve the homework problems by yourself, you are free to collaborate with your fellow students to find solutions to the homework problems. Regardless of whether you collaborate with other 451 students, you are required to write your own solutions to hand in. Copying homework solutions from another student or from existing solutions will be considered a violation of the honor code. Finally, if you choose to collaborate, you must include the names of your collaborators on your submitted homework. I haven't figured out yet how to track this, but I do look at it every once in awhile to see who's working with whom.
+
+\vspace{2mm} 
+
+Please take advantage of the Piazza discussion forum on CTools and the professor's and GSI's office hours. We are all in this together!!! (Seriously)
+
+
+\vspace{2mm}
+All HWs will now be worth 50 points. Each problem is worth 10 points.
+
+\vspace{5mm}
+
+\begin{enumerate}
+
+\item Download and execute the m-file \texttt{freqMary.m} from CTools. You will need to load marySong.mat from last week's homework. The goal of this problem is to understand the aliasing you heard by looking at the effect of linear interpolation in frequency domain.
+
+General overview of m-file:
+\[ y[n] \stackrel{\text{downsample by }N}{\longrightarrow} y_d[n] \stackrel{\text{upsample by }N}{\longrightarrow} y_s[n] \stackrel{\text{linear interpolation}}{\longrightarrow} y_i[n]
+\]
+
+
+\vspace{2mm}
+
+\begin{description}
+\item [(a)] Complete the m-file. You will need to compute $y_d[n]$ and $y_s[n]$ on lines 34 and 37.
+You will also need to complete lines 38, 40, 52, and 54. Hint: look at $Y[k]$, but make sure you understand the functions used.
+
+\item [(b)] Describe what is happening to the spectrum of the signal as it is downsampled and then upsampled, i.e. how would you describe $Y_s[k]$ in terms of $Y[k]$?
+
+\item [(c)] Describe what happens to the spectrum of the signal during interpolation. How is $Y_i[k]$ related to $Y_s[k]$? Hint: what is the impulse response $h[n]$ for linear interpolation, and what is the general shape of its DFT?
+ 
+\item [(d)] Now change $N$ to 75 and rerun \texttt{freqMary.m}. What has changed?
+
+\item [(e)] Submit print outs of plots for both $N=35$ and $N=75$. Also submit your code.
+
+\end{description}
+%\vspace{2mm} 
+%\item Execute your m-file and describe in one sentence the sound you hear. Did you expect this? Explain briefly what happened in one or two sentences.
+%
+%\end{enumerate}
+
+
+%\vspace{5mm}
+%\item This problem looks at aliasing of some simple songs. Download these files:
+%
+%\vspace{2mm} 
+%\url{http://web.eecs.umich.edu/~girasole/teaching/451/marySong.mat}
+%
+%\vspace{2mm} 
+%\url{"/451/scarlattiOrig.wav}
+%
+%\vspace{2mm} 
+%\url{"/451/interpolatingMary.m}
+%
+%\vspace{2mm}
+%You may copy the first few lines to run them in Matlab, and you will hear the song Mary had a Little Lamb. Lines 14-16 of the code undersample the song, and it's your job to write code to interpolate the song in order to reconstruct it. Start by setting $N=10$, so we are taking every $10^{th}$ sample. 
+%
+%\vspace{2mm}
+%\begin{enumerate}
+%\item Finish writing the code for linear interpolation on Lines 20-23, using the Matlab function \texttt{interp1}. It might help to comment out the rest of the code so that you can run your script without a syntax error. 
+%
+%\vspace{2mm}
+%\item Finish writing the sinc interpolation code on Lines 28-34. 
+%
+%\vspace{2mm}
+%\item Fill in the same code from the previous two parts into Lines 48-51, 54-59 for the Scarlatti song.
+%
+%\vspace{2mm}
+%\item So far we have used $N=10$. What is the sampling frequency that this corresponds to? Describe with one or two sentences what you hear from the interpolated songs. What does this imply about the original signal? 
+%
+%\vspace{2mm}
+%\item Now change this to $N=25$. What do you hear?
+%
+%\vspace{2mm}
+%\item Now try $N=50$ and $N=100$. Qualitatively describe what you hear, as well as the difference between the linear interpolation and the sinc interpolation for each.
+%
+%\end{enumerate}
+
+
+\vspace{5mm}
+\item Textbook 8.21 % same number in 3rd edition
+
+\vspace{5mm}
+\item Textbook 8.30 %not in 3rd edition
+
+\vspace{5mm} 
+\item Textbook 8.67 % 8.70 in 3rd edition
+
+\vspace{5mm} 
+\item The deterministic crosscorrelation function between two real sequences is defined as
+% 8.49 in 3rd edition
+
+\[
+c_{xy}[n]=\sum_{m=-\infty}^\infty y[m]x[n+m] = \sum_{m=-\infty}^\infty y[-m]x[n-m]=y[-n]*x[n]\quad -\infty < n < \infty
+\]
+
+\begin{description}
+\item[\textbf{(a)}] Show that the DTFT of $c_{xy}[n]$ is $C_{xy}(e^{j\omega}) = X(e^{j\omega})Y^*(e^{j\omega})$.
+\item[\textbf{(b)}] Suppose that $x[n] = 0$ for $n < 0$ and $n > 99$ and $y[n]=0$ for $n < 0$ and $n > 49$. The corresponding crosscorrelation function $c_{xy}[n]$ will be nonzero only in a finite-length interval $N_1 \leq n \leq N_2$. What are $N_1$ and $N_2$?
+\item[\textbf{(c)}] Suppose that we wish to compute values of $c_{xy}[n]$ in the interval $0 \leq n \leq 20$ using the following procedure:
+\begin{description}
+\item[\textbf{(i)}] Compute $X[k]$, the $N$-point DFT of $x[n]$
+\item[\textbf{(ii)}] Compute $Y[k]$, the $N$-point DFT of $y[n]$
+\item[\textbf{(iii)}] Compute $C[k]=X[k]Y^*[k]$ for $0 \leq k \leq N - 1$
+\item[\textbf{(iv)}] Compute $c[n]$, the inverse DFT of $C[k]$
+\end{description}
+What is the \textit{minimum} value of $N$ such that $c[n] = c_{xy}[n]$, \\$0 \leq n \leq 20$? Explain your reasoning.
+\end{description}
+
+
+\end{enumerate}
+
+
+\end{document}

@@ -1,0 +1,90 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                 
+\usepackage[parfill]{parskip}        
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{1,1,1}
+
+
+\begin{document}
+Solution for problem 2.78 form O\&S, problem \#3 on hmwk 2
+
+Let $x[n]$ and $X(\omega)$ represent a sequence and its Fourier transform, respectively. Determine, in terms of $X(\omega)$, the transforms of $y_s[n]$, $y_d[n]$, $y_e[n]$. In each case, sketch $Y(\omega)$ for $X(\omega)$ as shown in Figure P278-1.
+\section*{(a) Sampler: }
+\begin{equation*}
+y_s[n] = \begin{cases} x[n], & n \text{ even} \\ 
+0, & n \text{ even}
+\end{cases}
+\end{equation*}
+
+Note that $y_s[n]=\frac{1}{2}\{x[n]+(-1)^nx[n]\}$ and $-1=e^{j \pi}$.
+
+\begin{eqnarray*}
+y_s[n] &=& x[n]\left(\frac{1+(-1)^n}{2} \right) \text{ from hint}\\
+&=& \frac{1}{2}x[n]+\frac{1}{2}(-1)^n x[n]\\
+&=& \frac{1}{2}x[n]+\frac{1}{2}(e^{j\pi})^n x[n]\\
+Y(\omega) &=& \frac{1}{2}X(\omega) +\frac{1}{2}X(\omega-\pi) \text{ from hint}\\
+&&  \text{ from linearity of IDTFT and frequency shift theorem}
+\end{eqnarray*}
+
+Insert picture here- it should look like a constant value of $1/2$.
+
+\section*{(b) Compressor: }
+\begin{equation*}
+y_d[n] = x[2n]
+\end{equation*}
+
+\begin{eqnarray*}
+Y_d(\omega) &=& \sum_{n=-\infty}^\infty y_d[n]e^{-j\omega n} \\
+&=& \sum_{n=-\infty}^\infty x[2n]e^{-j\omega n} \\
+&& \text{Let } m =2n \\
+&=& \sum_{\substack{m=-\infty \\ m \text{ even}}}^\infty x[m]e^{-j\omega m/2} \text{ because } y_d[n] \text{ is only defined on integer } n\\
+&=& \sum_{m=-\infty}^\infty x[m]e^{-j\omega m/2} \left(\frac{1+(-1)^m}{2}\right) \text{ from hint in part (a) } \\
+&=& \frac{1}{2}\sum_{m=-\infty}^\infty x[m]e^{-j\omega m/2} \left(1+e^{j \pi m}\right) \\
+&& \text{ Let } \tilde{\omega} = \omega/2 \\
+&=& \frac{1}{2}\sum_{m=-\infty}^\infty x[m]e^{-j\tilde{\omega}  m} \left(1+e^{j \pi m}\right) \\
+&=& \frac{1}{2}\sum_{m=-\infty}^\infty x[m]e^{-j\tilde{\omega}  m} + \frac{1}{2}\sum_{m=-\infty}^\infty x[m]e^{-j(\tilde{\omega} -\pi) m}\\
+&=& \frac{1}{2}X(\tilde{\omega}) +\frac{1}{2}X(\tilde{\omega}-\pi) \\
+&=& \frac{1}{2}X\left(\frac{\omega}{2}\right) +\frac{1}{2}X\left(\frac{\omega}{2}-\pi \right) \\
+\end{eqnarray*}
+
+Insert picture here- it should also look like a constant value of $1/2$.
+
+\section*{(c) Expander: }
+\begin{equation*}
+y_e[n] = \begin{cases}
+x[n/2], & n \text{ even} \\
+0, & n \text{ odd}
+\end{cases}
+\end{equation*}
+
+\begin{eqnarray*}
+Y_e(\omega) &=& \sum_{n=-\infty}^\infty y_e[n]e^{-j\omega n} \\
+&=& \sum_{\substack{n=-\infty \\ n \text{ even}}}^\infty y_e[n]e^{-j\omega n} + \sum_{\substack{n=-\infty \\ n \text{ odd}}}^\infty y_e[n]e^{-j\omega n} \\
+&=& \sum_{\substack{n=-\infty \\ n \text{ even}}}^\infty x[n/2]e^{-j\omega n} + \sum_{\substack{n=-\infty \\ n \text{ odd}}}^\infty 0\ e^{-j\omega n} \\
+&=& \sum_{\substack{n=-\infty \\ n \text{ even}}}^\infty x[n/2]e^{-j\omega n}\\
+&& \text{ Let } m=n/2 \text{ for even } n \\
+&=& \sum_{m=-\infty}^\infty x[m]e^{-j\omega 2m}\\
+&=& \sum_{m=-\infty}^\infty x[m]e^{-j(2 \omega) m}\\
+&& \text{ Let } \tilde{\omega}=2\omega \\
+&=& \sum_{m=-\infty}^\infty x[m]e^{-j\tilde{\omega} m}\\
+&=& X(\tilde{\omega})\\
+&=& X(2\omega)
+\end{eqnarray*}
+
+Expanding in the time domain yields compression in the frequency domain. The picture should look like a squished version of $X(\omega)$.
+
+\end{document}

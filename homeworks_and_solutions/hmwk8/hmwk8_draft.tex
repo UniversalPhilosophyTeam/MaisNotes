@@ -1,0 +1,61 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                 
+\usepackage[parfill]{parskip}        
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{1,1,1}
+
+
+\begin{document}
+Homework 8 draft
+
+\begin{enumerate}
+\vspace{5mm}
+\item Textbook 8.21 % same number in 3rd edition
+
+\vspace{5mm}
+\item Textbook 8.30 %not in 3rd edition
+
+\vspace{5mm} 
+\item Textbook 8.67 % 8.70 in 3rd edition
+
+\vspace{5mm} 
+\item The deterministic crosscorrelation function between two real sequences is defined as
+% 8.49 in 3rd edition
+
+\[
+c_{xy}[n]=\sum_{m=-\infty}^\infty y[m]x[n+m] = \sum_{m=-\infty}^\infty y[-m]x[n-m]=y[-n]*x[n]\quad -\infty < n < \infty
+\]
+
+\begin{description}
+\item[\textbf{(a)}] Show that the DTFT of $c_{xy}[n]$ is $C_{xy}(e^{j\omega}) = X(e^{j\omega})Y^*(e^{j\omega})$.
+\item[\textbf{(b)}] Suppose that $x[n] = 0$ for $n < 0$ and $n > 99$ and $y[n]=0$ for $n < 0$ and $n > 49$. The corresponding crosscorrelation function $c_{xy}[n]$ will be nonzero only in a finite-length interval $N_1 \leq n \leq N_2$. What are $N_1$ and $N_2$?
+\item[\textbf{(c)}] Suppose that we wish to compute values of $c_{xy}[n]$ in the interval $0 \leq n \leq 20$ using the following procedure:
+\begin{description}
+\item[\textbf{(i)}] Compute $X[k]$, the $N$-point DFT of $x[n]$
+\item[\textbf{(ii)}] Compute $Y[k]$, the $N$-point DFT of $y[n]$
+\item[\textbf{(iii)}] Compute $C[k]=X[k]Y^*[k]$ for $0 \leq k \leq N - 1$
+\item[\textbf{(iv)}] Compute $c[n]$, the inverse DFT of $C[k]$
+\end{description}
+What is the \textit{minimum} value of $N$ such that $c[n] = c_{xy}[n]$, $0 \leq n \leq 20$? Explain your reasoning.
+\end{description}
+
+%\vspace{5mm}
+%\item Byron is faced with computing \textbf{lots} of discrete Fourier transforms. He will, of course, use the FFT algorithm, but he is behind schedule and needs to get his results as quickly as possible. He gets the idea of computing 
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,300 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                 
+\usepackage[parfill]{parskip}        
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{1,1,1}
+
+%\lstset{
+%	backgroundcolor=\color{lbcolor},
+%	tabsize=4,
+%	rulecolor=,
+%	language=matlab,
+%	basicstyle= \scriptsize,
+%	upquote=true,
+%	aboveskip={1.5\baselineskip},
+%	columns=fixed,
+%        	showstringspaces=false,
+%        	extendedchars=true,
+%        	breaklines=true,
+%        	prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+%        	frame=single,
+%        	showtabs=false,
+%        	showspaces=false,
+%        	showstringspaces=false,
+%        	identifierstyle=\ttfamily,
+%        	keywordstyle=\color[rgb]{0,0,1},
+%        	commentstyle=\color[rgb]{0.133,0.545,0.133},
+%        	stringstyle=\color[rgb]{0.627,0.126,0.941},
+%}
+
+
+\begin{document}
+
+\section*{Solutions for Discussion 1, 09/11/13}
+Compiled by Mai Le
+% $x[n]$ can refer to a sequence or a value
+
+\section{Alternate Expressions for Sequences}
+Let $x[n] = \begin{cases} \left(\frac{1}{2}\right)^n, & n \text{ nonnegative multiple of 4} \\ -\left(\frac{1}{2}\right)^n, & n \text{ nonnegative multiple of 2, but not a nonnegative multiple of 4} \\ 0, & \text{otherwise}\end{cases}$ \\
+Express $x[n]$ mathematically in three different ways.
+
+{\color{blue}
+1. $x[n] = \{\underline{1}, 0, \frac{-1}{4}, 0, \frac{1}{16}, 0, \frac{-1}{64},... \}$ \\
+\\
+2. $x[n] = \delta[n]-\frac{1}{4}\delta[n-2]+\frac{1}{16}\delta[n-4]-\frac{1}{64}\delta[n]+...$ \\ \\
+3. $x[n] = \sum\limits_{k=0}^\infty (-1)^k(\frac{1}{4})^k\delta[b-2k]$ \\ \\
+4. $x[n] = u[n]cos\left(\frac{\pi}{2}n\right)\left(\frac{1}{2}\right)^n$ }
+
+\section{Nonlinear Systems}
+Give an example of a system that is nonlinear but satisfies $\mathcal{T}\{\alpha x[n]\} = \alpha \mathcal{T}\{x[n]\}$ for all sequences $x[n]$ and for all scalars $\alpha \in \mathbb{R}$.
+
+{\color{blue}
+$y[n] = \begin{cases} \frac{x^2[n]}{x[n-1]}, & x[n-1] \neq 0 \\
+x[n], & x[n-1] = 0 \end{cases} $
+
+Then 
+\begin{eqnarray*}\mathcal{T}\{\alpha x[n]\} &=& \begin{cases} \frac{\alpha^2 x^2[n]}{\alpha x[n-1]}, & x[n-1] \neq 0 \\
+\alpha x[n], & x[n-1] = 0 \end{cases}  \\
+&=& \begin{cases} \frac{\alpha x^2[n]}{x[n-1]}, & x[n-1] \neq 0 \\
+\alpha x[n], & x[n-1] = 0 \end{cases} \\
+&=& \alpha \begin{cases} \frac{ x^2[n]}{x[n-1]}, & x[n-1] \neq 0 \\
+x[n], & x[n-1] = 0 \end{cases} \\
+&=& \alpha \mathcal{T}\{x[n]\}
+\end{eqnarray*}
+
+but the system fails the addition property:
+
+$\mathcal{T}\{x_1[n]+x_2[n]\} \neq \mathcal{T}\{x_1[n]\} + \mathcal{T}\{x_2[n]\}$
+
+example: Let $x_1[n] = \delta[n]$ and $x_2[n] = -\delta[n-1]$. Then $\mathcal{T}\{x_1[n]\} = \delta[n]$ and $\mathcal{T}\{x_2[n]\} = -\delta[n-1]$. But $\mathcal{T}\{x_1[n]+x_2[n]\} = \mathcal{T}\{\delta[n]-\delta[n-1]\} = \delta[n]+\delta[n-1]$
+
+%for n=0, 1
+%for n=1, 1^2/1 = 1
+%for n=2, 0/1 = 0
+%
+%HMM DIFFERENT EXAMPLE
+}
+
+\section{Length of Convolution}
+Let $x[n]$ be non-zero only over $N_1 \leq n \leq N_2$ and $h[n]$ be non-zero only over $M_1 \leq n \leq M_2$. Let $y[n]=x[n]*h[n]$. Then $y[n]$ is only non-zero over $L_1 \leq n \leq L_2$. Define $L_1$ and $L_2$ in terms of $N_1$, $N_2$, $M_1$, and $M_2$.
+
+{\color{blue}
+For convenience, let $h[n]$ be shorter than $x[n]$. To answer this, we'll envision the "flip and slide", where we flip $h[n]$ and slide it over $x[n]$. Then it goes through three stages: entering, moving across, and exiting.
+
+For $M_2-M_1+1$ steps, the reversed $h$ is entering into $x[n]$. For $N_2-N_1-(M_2-M_1)-1$ steps, $h[n]$ moves within/across $x[n]$. Finally, $h[n]$ takes $M_2-M_1+1$ steps to exit $x[n]$. 
+
+The total length, $L_2-L_1+1 = (M_2-M_1+1)+(N_2-N_1-(M_2-M_1)-1) + (M_2-M_1+1) = N_2-N_1+M_2-M_1+1$.
+
+More specifically, $L_1$ is when $h[n]$ is just beginning to enter $x[n]$, so $L_1 = N_1+M_1$, and $L_2$ is when $h[n]$ has finished exiting $x[n]$ so $L_2=N_2+M_2$.
+
+}
+
+\section{Distributivity of Convolution}
+Prove the distributive property of convolution.
+
+{\color{blue}
+\begin{eqnarray*}
+x_1[n]*\left(x_2[n]+x_3[n] \right) &=& \sum\limits_{k=-\infty}^\infty x_1[k] \left(x_2[n-k]+x_3[n-k] \right) \text{from definition of convolution} \\
+&=& \sum\limits_{k=-\infty}^\infty x_1[k] \left(x_2[n-k]\right)+\sum\limits_{k=-\infty}^\infty x_1[k] \left(x_3[n-k] \right) \\
+&=& x_1[n]*x_2[n] + x_1[n]*x_3[n] 
+\end{eqnarray*}
+}
+
+\section{Computing Discrete Convolution}
+Let $y[n]=x[n]*h[n]$. Find an expression for $y[n]$.
+\subsection*{(a)}
+$x[n] = \begin{cases} 1, & n = -2,0,1 \\ 2, & n = -1\\ 0, & otherwise \end{cases}$
+\\
+$h[n]=\delta[n]-\delta[n-1]+\delta[n-4]+\delta[n-5]$
+
+{\color{blue}
+First, I will rewrite $x[n]$ using deltas. $x[n] = \delta[n+2]+2\delta[n+1]+\delta[n]+\delta[n-1]$.
+
+\begin{eqnarray*}
+y[n] &=& \sum\limits_{k=-\infty}^\infty h[k] x[n-k] \\
+&=& \sum\limits_{k=-\infty}^\infty \left(\delta[k]-\delta[k-1]+\delta[k-4]+\delta[k-5] \right) \left(\delta[n-k+2]+2\delta[n-k+1]+\delta[n-k]+\delta[n-k-1] \right) \\
+%&=& \sum\limits_{k=-\infty}^\infty \delta[k]\delta[k-5] + \sum\limits_{k=-\infty}^\infty \delta[k]2\delta[n-k+1] + \sum\limits_{k=-\infty}^\infty  \delta[k]\delta[n-k] + \sum\limits_{k=-\infty}^\infty  \delta[k] \delta[n-k-1] \\
+&& \quad \sum\limits_{k=-\infty}^\infty -\delta[k-1]\delta[n-k+2] + \sum\limits_{k=-\infty}^\infty -\delta[k-1]2\delta [n-k+1] + \sum\limits_{k=-\infty}^\infty -\delta[k-1] \delta [n-k] + \sum\limits_{k=-\infty}^\infty -\delta[k-1] \delta[n-k-1] \\
+&& \quad \sum\limits_{k=-\infty}^\infty \delta[k-4] \delta [n-k+2] + \sum\limits_{k=-\infty}^\infty \delta[k-4] 2\delta[n-k+1] + \sum\limits_{k=-\infty}^\infty \delta[k-4] \delta [n-k] + \sum\limits_{k=-\infty}^\infty \delta[k-4] \delta [n-k-1] \\
+&& \quad \sum\limits_{k=-\infty}^\infty \delta[k-5] \delta [n-k+2] + \sum\limits_{k=-\infty}^\infty \delta[k-5] 2\delta[n-k+1] + \sum\limits_{k=-\infty}^\infty \delta[k-5] \delta [n-k] + \sum\limits_{k=-\infty}^\infty \delta[k-5] \delta [n-k-1] \\
+\end{eqnarray*}
+}
+
+\subsection*{(b)}
+$x[n]=u[n+1]-u[n-4]-\delta[n-5]$
+\\
+$h[n] = \left(u[n+2]-u[n-3]\right)\left(3-|n|\right)$
+
+{\color{blue}
+As mentioned in the Piazza post "Visualizing Convolution" on 09/11, there are several methods you can use for evaluating and computing convolutions. The first is algebraic, and the second is graphical. Here are the solutions for the algebraic method. The graphical method solutions are in disc1\_5b\_flip\_and\_slide.pdf.
+
+\begin{eqnarray*}
+y[n] &=& x[n]*h[n] \\
+&=& \sum\limits_{k=-\infty}^\infty h[k]x[n-k] \\
+&=& \sum\limits_{k=-\infty}^\infty \left(u[k+2]-u[k-3]\right)\left(3-|k|\right)\left( u[n-k+1]-u[n-k-4]-\delta[n-k-5] \right)\\
+&=& \sum\limits_{k=-\infty}^\infty u[k+2]\left(3-|k|\right)u[n-k+1] + \sum\limits_{k=-\infty}^\infty -u[k-3]\left(3-|k|\right)u[n-k+1] + \ldots \\
+&& \quad \sum\limits_{k=-\infty}^\infty -u[k+2]\left(3-|k|\right)u[n-k-4] + \sum\limits_{k=-\infty}^\infty u[k-3]\left(3-|k|\right)u[n-k-4] + \ldots \\
+&& \quad \sum\limits_{k=-\infty}^\infty -u[k+2]\left(3-|k|\right)\delta[n-k-5] + \sum\limits_{k=-\infty}^\infty u[k-3]\left(3-|k|\right)\delta[n-k-5] \\
+&=& 3\sum\limits_{k=-\infty}^\infty u[k+2]u[n-k+1] + 3\sum\limits_{k=-\infty}^\infty -u[k-3]u[n-k+1] + \ldots \\
+&& \quad 3\sum\limits_{k=-\infty}^\infty -u[k+2]u[n-k-4] + 3\sum\limits_{k=-\infty}^\infty u[k-3]u[n-k-4] + \ldots \\
+&& \quad 3\sum\limits_{k=-\infty}^\infty -u[k+2]\delta[n-k-5] + 3\sum\limits_{k=-\infty}^\infty u[k-3]\delta[n-k-5] + \ldots \\
+&& \sum\limits_{k=-\infty}^\infty -|k|u[k+2]u[n-k+1] + \sum\limits_{k=-\infty}^\infty |k|u[k-3]u[n-k+1] + \ldots \\
+&& \quad \sum\limits_{k=-\infty}^\infty |k|u[k+2]u[n-k-4] + \sum\limits_{k=-\infty}^\infty -|k| u[k-3]u[n-k-4] + \ldots \\
+&& \quad \sum\limits_{k=-\infty}^\infty |k|u[k+2]\delta[n-k-5] + \sum\limits_{k=-\infty}^\infty -|k|u[k-3]\delta[n-k-5] 
+\end{eqnarray*}
+
+Let $u[n]*u[n] = r[n]$. Recall that convolution is shift-invariant, so $u[n-n_0]*u[n-n_1]=r[n-n_0-n_1]$.
+
+\begin{eqnarray*}
+y[n] &=& 3r[n+3] - 3r[n-2] - 3r[n-2] + 3r[n-7] - 3u[n-3] + 3u[n-8] + \ldots \\
+&& \sum\limits_{k=-\infty}^\infty -|k|u[k+2]u[n-k+1] + \sum\limits_{k=-\infty}^\infty |k|u[k-3]u[n-k+1] + \ldots \\
+&& \quad \sum\limits_{k=-\infty}^\infty |k|u[k+2]u[n-k-4] + \sum\limits_{k=-\infty}^\infty -|k| u[k-3]u[n-k-4] + \ldots \\
+&& \quad \sum\limits_{k=-\infty}^\infty |k|u[k+2]\delta[n-k-5] + \sum\limits_{k=-\infty}^\infty -|k|u[k-3]\delta[n-k-5] 
+\end{eqnarray*}
+
+to be finished in updated solutions
+
+Note: As you can see, for this problem, it's much easier to do the graphical method than the algebraic method. 
+
+}
+
+\section{Convolution and Signal Sums}
+Let $y[n] = x[n]*h[n]$. Prove that $\left( \sum\limits_{n=- \infty }^\infty y[n]\right) = \left(\sum\limits_{n=-\infty}^\infty x[n]\right)\left(\sum\limits_{n=-\infty}^\infty h[n]\right)$.
+
+{\color{blue}
+\begin{eqnarray*}
+y[n] &=& \sum\limits_{k=-\infty}^\infty h[k]x[n-k] \\
+\left(\sum\limits_{n=-\infty}^\infty y[n] \right) &=& \sum\limits_{n=-\infty}^\infty \left( \sum\limits_{k=-\infty}^\infty h[k]x[n-k] \right) \\
+ &=& \sum\limits_{k=-\infty}^\infty \left( \sum\limits_{n=-\infty}^\infty h[k]x[n-k] \right) \text{switch order of sums} \\
+&=& \sum\limits_{k=-\infty}^\infty h[k] \left(\sum\limits_{n=-\infty}^\infty x[n-k] \right) \text{part in parentheses has same value for all $k$}\\
+&=& \left(\sum\limits_{k=-\infty}^\infty h[k]\right) \left(\sum\limits_{m=-\infty}^\infty x[m] \right) \text{change of indexing variable for $x$, $m=n-k$} \\
+\end{eqnarray*}
+}
+
+\section{Impulse Response of a BIBO Stable System}
+Let $h[n]$ be the impulse response of a BIBO stable system. (Remember that impulse responses are only defined for LSI systems, so this system is also LSI.) What must hold true for $h[n]$?
+
+{\color{blue}
+Let $x[n]$ be a bounded input with bound $B_x$. Then $|x[n]| \leq B_x$ for all $n$.
+\begin{eqnarray*}
+|y[n]| &=& \big|\sum\limits_{k=-\infty}^\infty h[k]x[n-k]\big|
+\leq  \sum\limits_{k=-\infty}^\infty \big| h[k]x[n-k]\big| \text{ from triangle inequality} \\
+\sum\limits_{k=-\infty}^\infty \big| h[k]x[n-k]\big| &\leq & \sum\limits_{k=-\infty}^\infty \big| h[k]\big|\ \big|x[n-k]\big| \leq  \sum\limits_{k=-\infty}^\infty \big| h[k]\big|  B_x = B_x \left(\sum\limits_{k=-\infty}^\infty \big| h[k]\big| \right) = B_y
+\end{eqnarray*}
+
+We choose $B_x \left(\sum\limits_{k=-\infty}^\infty \big| h[k]\big| \right)$ as our bound $B_y$. Since $B_x < \infty$, we can ensure $B_y < \infty$ if $\sum\limits_{k=-\infty}^\infty \big| h[k]\big| < \infty$. In other words, if $h[n]$ is absolutely summable (the sum of its absolute values is finite), the output of a bounded input is also bounded. Thus, a system is BIBO stable if its impulse response is absolutely summable. (It is also true that a LSI system with an absolutely summable impulse response is BIBO stable.)
+}
+
+\section{Impulse Response of a Causal System}
+Let $h[n]$ be the impulse response of a causal system. What must hold true for $h[n]$?
+
+{\color{blue}
+\begin{eqnarray*}
+y[n] &=& \sum\limits_{k=-\infty}^\infty h[k]x[n-k] \\
+&=& \sum\limits_{k=-\infty}^{-1} h[k]x[n-k] \\
+&& \quad +\ \ h[0]x[n-0] \\
+&& \quad +\ \sum\limits_{k=1}^\infty h[k]x[n-k] \\
+&=& \sum\limits_{k=1}^\infty h[-k]x[n+k] \quad \text{future values of $x[n]$} \\
+&& \quad +\ \ h[0]x[n-0] \quad \text{present value of $x[n]$}\\
+&& \quad +\ \sum\limits_{k=1}^\infty h[k]x[n-k] \quad \text{past values of $x[n]$}\\
+\end{eqnarray*}
+
+The first term is a sum of future values of $x[n]$. For the system to be causal, $y[n]$ cannot depend on any of these values- we want each term in that sum to be zero, regardless of the input $x[n]$. We can guarantee that by choosing $h[n] = 0$ for $n < 0$. Thus, a causal system has a causal impulse response. (It is also true that an LSI system with a causal impulse response is a causal system.)
+}
+
+\section{Impulse Response of an Invertible System}
+A system $\mathcal{T}_1$ is invertible if there exists a system $\mathcal{T}_2$ such that $\mathcal{T}_2\{\mathcal{T}_1\{x[n]\}\} = x[n]$ for all $n \in \mathbb{Z}$. Let $h[n]$ be the impulse response of an invertible system. What must hold true for $h[n]$?
+
+{\color{blue}
+For this problem, you can take for granted that the inverse of an LSI system is also LSI.
+
+If $h[n]$ is the impulse response of an invertible system $\mathcal{T}_1$, then there also exists an LSI system $\mathcal{T}_2$ such that $\mathcal{T}_2\{\mathcal{T}_1\{x[n]\}\} = x[n]$. 
+
+\begin{eqnarray*}
+\mathcal{T}_2\{\mathcal{T}_1\{x[n]\}\} &=& x[n] \\
+\mathcal{T}_2\{h_1[n]*x[n]\} &=& x[n] \\
+h_2[n]*(h_1[n]*x[n]) &=& x[n] \text{ where $h_2[n]$ is the impulse response of $\mathcal{T_2}$}\\
+(h_2[n]*h_1[n])*x[n]) &=& x[n] \text{ associativity of convolution}\\
+(h_2[n]*h_1[n])*x[n]) &=& \delta[n]*x[n] \text{ property of Kronecker delta}\\
+\end{eqnarray*}
+
+The Kronecker delta has the property that $\delta[n]*x[n]=x[n]$ for all $n$. It is also the only discrete signal with that property. Therefore, $(h_2[n]*h_1[n])=\delta[n]$. In conclusion, if a system is invertible with impulse response $h_1[n]$, then there exists some other sequence $h_2[n]$ such that $(h_2[n]*h_1[n])=\delta[n]$, and $h_2[n]$ is the impulse response of the inverse system.
+}
+
+\section{Eigensequences}
+A sequence $x[n]$ is an eigensequence of a system $\mathcal{T}$ if $\mathcal{T}\{x[n]\}=\lambda x[n]$ for some non-zero scalar $\lambda \in \mathbb{C}$. What are the eigensequences for the following systems?
+\subsection{$\mathcal{T}\{x[n]\}=3x[n]$}
+
+{\color{blue}
+Any sequence is an eigensequence of this system!
+}
+
+\subsection{$\mathcal{T}\{x[n]\}=x[n]u[n]$}
+{\color{blue}
+Any causal sequence is an eigensequence of this system.
+}
+
+\subsection{causal moving average: $\mathcal{T}\{x[n]\}=\frac{1}{M}\sum\limits_{k=0}^{M-1} x[n-k]$}
+
+{\color{blue}
+Any constant sequence is an eigensequence of this system. Complex exponentials of the form $x[n] = Ae^{j\omega n}$ are also eigenfunctions (because this is an LSI system).
+}
+
+\subsection{general LSI system: $\mathcal{T}\{x[n]\}=\sum\limits_{k=-\infty}^\infty h[k]x[n-k]$}
+
+{\color{blue}
+We showed this in lecture 3.
+
+Any sequence of the form $x[n] = Ae^{j\omega n}$ is an eigensequence:
+\begin{eqnarray*}
+\mathcal{T}\{Ae^{j\omega n}\}&=&\sum\limits_{k=-\infty}^\infty h[k]Ae^{j\omega (n-k)} \\
+&=& Ae^{j\omega n} \left(\sum\limits_{k=-\infty}^\infty h[k]e^{-j\omega k} \right) \\
+&=& Ae^{j\omega n} \lambda 
+\end{eqnarray*}
+
+Since $\sum\limits_{k=-\infty}^\infty h[k]e^{-j\omega k}$ is not a function of $n$, we can rewrite is as a constant $\lambda$ and see that the output is a scaled version of the input.
+}
+
+\section{Geometric Basis for Sequences}
+Consider the signal $\gamma[n]=a^nu[n]$ for $0<a<1$. 
+
+{\color{blue}
+These solutions will be withheld for now. Please attempt this problem on your own!
+}
+
+\subsection*{(a)} 
+Show that any sequence $x[n]$ can be decomposed as $x[n]=\sum\limits_{n=-\infty}^\infty c_k \gamma[n-k]$ and express $c_k$ in terms of $x[n]$. 
+
+\subsection*{(b)} 
+Use the properties of linearity and time invariance to express the output $y[n] = \mathcal{T}\{x[n]\}$ in terms of the input $x[n]$ and the signal $g[n]=\mathcal{T}\{y[n]\}$, where $\mathcal{T}$ is an LTI system.
+
+\subsection*{(c)} 
+Express the impulse response $h[n]=\mathcal{T}\{\delta[n]\}$ in terms of $g[n]$.
+
+\section{Steady State of Stable Systems}
+Let $\mathcal{T}$ be an LTI, BIBO stable system. Show if x[n] is bounded and tends to a constant, the corresponding output, $y[n]$, will also tend to a constant.
+
+{\color{blue}
+If $x[n]$ tends towards a constant, then $\lim\limits_{n\rightarrow \infty} x[n] = c_x < \infty$. Since the system is LSI, we also know it has an impulse response $h[n]$. Since it is BIBO stable, we also know from Problem 7 that $\sum\limits_{n=-\infty}^\infty \big| h[n]\big| < \infty$.
+
+\[
+\lim\limits_{n\rightarrow \infty} y[n] = \lim\limits_{n\rightarrow \infty} \sum\limits_{k=-\infty}^\infty h[k]x[n-k] = \sum\limits_{k=-\infty}^\infty  \lim\limits_{n\rightarrow \infty} h[k]x[n-k] = \sum\limits_{k=-\infty}^\infty h[k] \left( \lim\limits_{n\rightarrow \infty} x[n-k] \right) =c_y
+\]
+
+Since $\lim\limits_{n\rightarrow \infty} x[n-k] = \lim\limits_{n\rightarrow \infty} x[n] = c_x$ and $\sum\limits_{k=-\infty}^\infty h[k] \leq \sum\limits_{k=-\infty}^\infty |h[k]| < \infty$, their product, called $c_y$ is also finite. Thus, the corresponding output $y[n]$ also tends toward a constant.
+}
+
+\end{document}

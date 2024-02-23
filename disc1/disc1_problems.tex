@@ -1,0 +1,118 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                 
+\usepackage[parfill]{parskip}        
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{gensymb}
+\usepackage[T1]{fontenc}
+\usepackage[hang,small]{caption}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{1,1,1}
+\lstset{
+	backgroundcolor=\color{lbcolor},
+	tabsize=4,
+	rulecolor=,
+	language=matlab,
+	basicstyle= \scriptsize,
+	upquote=true,
+	aboveskip={1.5\baselineskip},
+	columns=fixed,
+        	showstringspaces=false,
+        	extendedchars=true,
+        	breaklines=true,
+        	prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        	frame=single,
+        	showtabs=false,
+        	showspaces=false,
+        	showstringspaces=false,
+        	identifierstyle=\ttfamily,
+        	keywordstyle=\color[rgb]{0,0,1},
+        	commentstyle=\color[rgb]{0.133,0.545,0.133},
+        	stringstyle=\color[rgb]{0.627,0.126,0.941},
+}
+
+
+\begin{document}
+
+\section*{Problems for Discussion 1, 09/11/13}
+Compiled by Mai Le
+% $x[n]$ can refer to a sequence or a value
+
+\section{Alternate Expressions for Sequences}
+Let $x[n] = \begin{cases} \left(\frac{1}{2}\right)^n, & n \text{ nonnegative multiple of 4} \\ -\left(\frac{1}{2}\right)^n, & n \text{ nonnegative multiple of 2, but not a nonnegative multiple of 4} \\ 0, & \text{otherwise}\end{cases}$ \\
+Express $x[n]$ mathematically in three different ways
+
+\section{Nonlinear Systems}
+Give an example of a system that is nonlinear but satisfies $\mathcal{T}\{\alpha x[n]\} = \alpha \mathcal{T}\{x[n]\}$ for all sequences $x[n]$ and for all scalars $\alpha \in \mathbb{R}$.
+
+\section{Length of Convolution}
+Let $x[n]$ be non-zero only over $N_1 \leq n \leq N_2$ and $h[n]$ be non-zero only over $M_1 \leq n \leq M_2$. Let $y[n]=x[n]*h[n]$. Then $y[n]$ is only non-zero over $L_1 \leq n \leq L_2$. Define $L_1$ and $L_2$ in terms of $N_1$, $N_2$, $M_1$, and $M_2$.
+
+\section{Distributivity of Convolution}
+Prove the distributive property of convolution.
+
+\section{Computing Discrete Convolution}
+Let $y[n]=x[n]*h[n]$. Find an expression for $y[n]$.
+\subsection*{(a)}
+$x[n] = \begin{cases} 1, & n = -2,0,1 \\ 2, & n = -1\\ 0, & otherwise \end{cases}$
+\\
+$h[n]=\delta[n]-\delta[n-1]+\delta[n-4]+\delta[n-5]$
+\subsection*{(b)}
+$x[n]=u[n+1]-u[n-4]-\delta[n-5]$
+\\
+$h[n] = \left(u[n+2]-u[n-3]\right)\left(3-|n|\right)$
+
+\section{Convolution and Signal Energy}
+Let $y[n] = x[n]*h[n]$. Prove that $\left( \sum\limits_{n=- \infty }^\infty y[n]\right) = \left(\sum\limits_{n=-\infty}^\infty x[n]\right)\left(\sum\limits_{n=-\infty}^\infty h[n]\right)$.
+
+
+\section{Impulse Response of a BIBO Stable System}
+Let $h[n]$ be the impulse response of a BIBO stable system. (Remember that impulse responses are only defined for LSI systems, so this system is also LSI.) What must hold true for $h[n]$?
+
+\section{Impulse Response of a Causal System}
+Let $h[n]$ be the impulse response of a causal system. What must hold true for $h[n]$?
+
+\section{Impulse Response of an Invertible System}
+A system $\mathcal{T}_1$ is invertible if there exists a system $\mathcal{T}_2$ such that $\mathcal{T}_2\{\mathcal{T}_1\{x[n]\}\} = x[n]$ for all $n \in \mathbb{Z}$. Let $h[n]$ be the impulse response of an invertible system. What must hold true for $h[n]$?
+
+\section{Eigensequences}
+A sequence $x[n]$ is an eigensequence of a system $\mathcal{T}$ if $\mathcal{T}\{x[n]\}=\lambda x[n]$ for some scalar $\lambda \in \mathbb{C}$. What are the eigensequences for the following systems?
+\subsection{$\mathcal{T}\{x[n]\}=3x[n]$}
+
+\subsection{$\mathcal{T}\{x[n]\}=x[n]u[n]$}
+
+\subsection{causal moving average: $\mathcal{T}\{x[n]\}=\frac{1}{M}\sum\limits_{k=0}^{M-1} x[n-k]$}
+
+\subsection{general LSI system: $\mathcal{T}\{x[n]\}=\sum\limits_{k=-\infty}^\infty h[k]x[n-k]$}
+
+\section{Geometric Basis for Sequences}
+Consider the signal $\gamma[n]=a^nu[n]$ for $0<a<1$. 
+
+\subsection*{(a)} 
+Show that any sequence $x[n]$ can be decomposed as $x[n]=\sum\limits_{n=-\infty}^\infty c_k \gamma[n-k]$ and express $c_k$ in terms of $x[n]$. 
+
+\subsection*{(b)} 
+Use the properties of linearity and time invariance to express the output $y[n] = \mathcal{T}\{x[n]\}$ in terms of the input $x[n]$ and the signal $g[n]=\mathcal{T}\{y[n]\}$, where $\mathcal{T}$ is an LTI system.
+
+\subsection*{(c)} 
+Express the impulse response $h[n]=\mathcal{T}\{\delta[n]\}$ in terms of $g[n]$.
+
+\section{Steady State of Stable Systems}
+Let $\mathcal{T}$ be an LTI, BIBO stable system. Show if x[n] is bounded and tends to a constant, the corresponding output, $y[n]$, will also tend to a constant.
+
+\end{document}

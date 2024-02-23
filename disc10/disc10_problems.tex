@@ -1,0 +1,114 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                 
+\usepackage[parfill]{parskip}        
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{1,1,1}
+
+\begin{document}
+{\small
+\section*{Problems for Discussion 10, 12/04/13}
+Compiled by Mai Le
+}
+
+\section{Some Types of Filters}
+
+\begin{description}
+\item[Notch] 
+	\begin{itemize}
+	\item Goal: remove particular frequencies. Frequency response of filter should have a "notch" (missing piece) at the undesired frequency.
+	\item Place pairs of complex conjugate zeros on the unit circle
+	\item Place poles near zeros to reduce the bandwidth of the notch
+	\item Example: to eliminate the component at $0.4 \pi$
+	\[ H(z) = \frac{(z-e^{j 0.4 \pi})(z-e^{-j0.4 \pi})}{(z-0.9e^{j 0.4 \pi})(z-0.9e^{-j0.4 \pi})} \]
+	\end{itemize}
+\item[Low pass] 
+	\begin{itemize}
+	\item Goal: Remove high frequencies.
+	\item Place zeros near high frequencies
+	\item Place poles near low frequencies
+	\item Example:
+	\[ H(z) = \frac{(z-e^{j0.5 \pi})(z-e^{-j0.5 \pi})(z-e^{j0.75 \pi})(z-e^{-j0.75 \pi})(z-e^{j \pi})}{(z-0.6)(z-0.8e^{j0.25 \pi})(z-0.8e^{-j0.25 \pi})(z-0.8e^{j0.5 \pi})(z-0.8e^{-j0.5 \pi})} \]
+	\end{itemize}
+\item[Comb] 
+	\begin{itemize}
+	\item Goal: add delayed version of signal to itself, used in feedforward and feedback systems.
+	\item A notch filter in which the nulls occur periodically, like a comb
+	\item Example:
+	\vspace{3 cm}
+	\end{itemize}
+\end{description}
+
+\section{Matlab example of filter anlaysis}
+
+Let's use the LPF example:
+	\[ H(z) = \frac{(z-e^{j0.5 \pi})(z-e^{-j0.5 \pi})(z-e^{j0.75 \pi})(z-e^{-j0.75 \pi})(z-e^{j \pi})}{(z-0.6)(z-0.8e^{j0.25 \pi})(z-0.8e^{-j0.25 \pi})(z-0.8e^{j0.5 \pi})(z-0.8e^{-j0.5 \pi})} \]
+
+First we need to go from
+
+\[
+H(z) = \frac{b_0 z^{N-M}}{a_0} \frac{\prod_{k=1}^M (z-c_k)}{\prod_{k=1}^M (z-d_k)} \rightarrow H(z) = \frac{\sum_{k=0}^M b_k z^{-k}}{\sum_{k=0}^N a_k z^{-k}} 
+\]
+
+Then we can use the coefficients of the numerator and denominator, $b_k$ and $a_k$, respectively in \texttt{filter(b,a,x)} or to plot the transfer function with \texttt{freqz(b,a,n)}.
+
+For rest of this problem, see Matlab script \texttt{disc10\_filter\_example.m}.
+
+\section{Notch Filter Design}
+Determine the coefficients of the following notch filter if 
+\[ y[n] = a_1y[n-1] = x[n]+b_1x[n-1]+b_2x[n-2] \]
+
+\begin{description}
+\item[a)] It completely rejects the frequency component at $\omega = \frac{\pi}{4}$.
+\item[b)] It amplifies a DC signal by 2.
+\end{description}
+
+\section{Effect of Noise on Deconvolution}
+
+Suppose a klutzy cameraman moved the camera while snapping a photograph. From sensors, we happen to know the motion was to the right then downwards-right, corresponding to a convolution kernel that looks something like this:
+
+\[ h[n,m] = \begin{bmatrix} 1 & 1 & 1 & 0 & 0\\
+							0 & 0 & 0 & 1 & 0\\
+							0 & 0 & 0 & 0 & 1 \end{bmatrix} \]
+							
+\subsection*{(a)} Let's use the idea of deconvolution to remove blur from the image. See \texttt{disc10\_deconv\_example.m}.
+
+\subsection*{(a)} Suppose that the image was also corrupted by white Gaussian noise. How does this affect our deconvolution method? How does the SNR affect the performance of the algorithm?
+
+\section{Separability of the DSFT and 2D-DFT}
+
+As a reminder, here are the definitions of the DSFT (2D-DTFT) and the 2D-DFT:
+
+\[ X(u,v) = \sum_{m=-\infty}^\infty \sum_{n=-\infty}^\infty x[n,m] e^{jum}e^{jvn} \]
+
+\[ X[k,l] = X(u,v)\big|_{u = \frac{2 \pi k}{N}, v = \frac{2 \pi l}{M}}  =  \sum_{m=-\infty}^\infty \sum_{n=-\infty}^\infty x[n,m] e^{j\frac{2 \pi k}{N}m}e^{j\frac{2 \pi l}{M}n} \]
+
+Note that we can have different N and M (dimensions of the 2D-DFT) but lecture had N=M. 
+
+\begin{description}
+\item[(a)] Show that the DSFT is equivalent to taking the DTFT in the $n$-direction, followed by a DTFT in the $m$-direction (or $m$ then $n$). Show that the 2D-DFT is equivalent to taking the DFT in the $n$-direction, followed by a DFT in the $m$-direction.
+\item[(b)] Show that if $x[n,m]$ can be written as $x[n,m]=x_1[n]x_2[m]$, then $X(u,v)$ can be written as $X(u,v)=X_1(u)X_2(v)$.
+\end{description}
+
+\section{Practical Tip: Using \texttt{fftshift}}
+
+What does \texttt{fftshift} do in 1D? What about 2D?
+
+Can we reverse an \texttt{fftshift} with another \texttt{fftshift}? I.e. Does \texttt{fftshift(fftshift(a)) = a}?
+
+
+
+\end{document}

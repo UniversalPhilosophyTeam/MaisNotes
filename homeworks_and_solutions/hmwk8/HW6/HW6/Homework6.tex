@@ -1,0 +1,190 @@
+% major update 8/4/11
+% typo fixes 12/5/11
+% --------------------------------------------------------------------------
+%\documentclass[onecolumn,11pt]{ieeetran}
+\documentclass[draft]{siamltex}
+\usepackage{graphics,stfloats,amssymb,amsmath,amsfonts,epsfig}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{hyperref}
+\usepackage{verbatim}
+%\usepackage[named]{algo}
+
+% Example definitions
+% -------------------
+\def\x{{\mathbf x}}
+\def\L{{\cal L}}
+\def\half{\frac{1}{2}}
+\def\alphamax{\alpha_{\mbox{\tiny max}}}
+\def\alphamin{\alpha_{\mbox{\tiny min}}}
+
+
+% more useful abbreviations
+% -------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\btheta}{\mbox{\boldmath $\theta$}}
+\newcommand{\bgamma}{\mbox{\boldmath $\gamma$}}
+\newcommand{\bbeta}{\mbox{\boldmath  $\beta$}}
+\newcommand{\balpha}{\mbox{\boldmath $\alpha$}}
+\newcommand{\bDelta}{\mbox{\boldmath $\Delta$}}
+\newcommand{\bdelta}{\mbox{\boldmath $\delta$}}
+\newcommand{\bPsi}{\mbox{\boldmath   $\Psi$}}
+\newcommand{\bphi}{\mbox{\boldmath   $\phi$}}
+\newcommand{\bpi}{\mbox{\boldmath    $\pi$}}
+\newcommand{\btau}{\mbox{\boldmath   $\tau$}}
+\newcommand{\blambda}{\mbox{\boldmath $\lambda$}}
+\newcommand{\bTheta}{\mbox{\boldmath $\Theta$}}
+\newcommand{\bone}{\mbox{\boldmath   $1$}}
+\newcommand{\Loewner}[0]{\preceq}
+\newcommand{\Hessmat}{{\cal H}}
+\newcommand{\Bmat}{{\bf B}}
+\newcommand{\Amat}{{\bf A}}
+\newcommand{\bx}{{\bf x}}
+\newcommand{\gradv}{{\bf g}}
+\newcommand{\cG}{{\cal G}}
+\newcommand{\cS}{{\cal S}}
+\newcommand{\cT}{{\cal T}}
+\newcommand{\trace}{\mbox{\rm trace}}
+\newcommand{\tv}{\tilde{v}}
+\newcommand{\gammaC}{\gamma_C}
+
+\def\noprint#1{}
+\def\swcomment#1{{\em [SW: #1]}}
+\def\dmcomment#1{{\em [DM: #1]}}
+\def\swresolved#1{}
+\def\dmresolved#1{}
+\def\sparsa{SpaRSA\ }
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\beq{\begin{equation}}
+\def\eeq{\end{equation}}
+\def\eqnok#1{(\ref{#1})}
+
+% theorem environments
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{corollary}[theorem]{Corollary}
+
+% baselinestretch definition is important!!
+% \renewcommand{\baselinestretch}{1.565}
+
+% \ninept
+
+% Title.
+% ------
+\title{EECS 451 Fall 2013 HW 6 \hspace{1.2cm} Due October 29}
+
+\begin{document}
+%\ninept
+%
+\maketitle
+
+After a genuine attempt to solve the homework problems by yourself, you are free to collaborate with your fellow students to find solutions to the homework problems. Regardless of whether you collaborate with other 451 students, you are required to write your own solutions to hand in. Copying homework solutions from another student or from existing solutions will be considered a violation of the honor code. Finally, if you choose to collaborate, you must include the names of your collaborators on your submitted homework. I haven't figured out yet how to track this, but I do look at it every once in awhile to see who's working with whom.
+
+\vspace{2mm} 
+
+Please take advantage of the Piazza discussion forum on CTools and the professor's and GSI's office hours. We are all in this together!!! (Seriously)
+
+
+\vspace{2mm}
+All HWs will now be worth 50 points. Each problem is worth 10 points.
+
+\vspace{5mm}
+
+\begin{enumerate}
+\item Download and execute the m-file \texttt{chirp1.m} from 
+
+\vspace{2mm} 
+\url{http://web.eecs.umich.edu/~girasole/teaching/451/chirp1.m}
+
+\vspace{2mm} 
+You will hear a sound. We call this the ``chirp signal."
+
+\vspace{2mm} 
+\begin{enumerate}
+\item Describe in one sentence the sound you hear (without using the word ``chirp").
+
+\vspace{2mm} 
+\item The ``instantaneous frequency" of a cosine wave is defined as follows. Suppose $x(t) = \cos( f(t) )$, where $f$ is a function of time. Then the instantaneous frequency is $$\frac{d}{dt} f(t)\;.$$ What is the instantaneous frequency of the signal in the matlab file? What is the instantaneous frequency at $t=0$, and again at $t=3$? 
+
+\vspace{2mm} 
+\item Create a new file \texttt{chirp2.m} based on \texttt{chirp1.m}, in which the final frequency at $t=3$ is 5000 Hz. Turn in your m-file.
+
+\vspace{2mm} 
+\item Execute your m-file and describe in one sentence the sound you hear. Did you expect this? Explain briefly what happened in one or two sentences.
+
+\end{enumerate}
+
+
+\vspace{5mm}
+\item This problem looks at aliasing of some simple songs. Download these files:
+
+\vspace{2mm} 
+\url{http://web.eecs.umich.edu/~girasole/teaching/451/marySong.mat}
+
+\vspace{2mm} 
+\url{"/451/scarlattiOrig.wav}
+
+\vspace{2mm} 
+\url{"/451/interpolatingMary.m}
+
+\vspace{2mm}
+You may copy the first few lines to run them in Matlab, and you will hear the song Mary had a Little Lamb. Lines 14-16 of the code undersample the song, and it's your job to write code to interpolate the song in order to reconstruct it. Start by setting $N=10$, so we are taking every $10^{th}$ sample. 
+
+\vspace{2mm}
+\begin{enumerate}
+\item Finish writing the code for linear interpolation on Lines 20-23, using the Matlab function \texttt{interp1}. It might help to comment out the rest of the code so that you can run your script without a syntax error. 
+
+\vspace{2mm}
+\item Finish writing the sinc interpolation code on Lines 28-34. 
+
+\vspace{2mm}
+\item Fill in the same code from the previous two parts into Lines 48-51, 54-59 for the Scarlatti song.
+
+\vspace{2mm}
+\item So far we have used $N=10$. What is the sampling frequency that this corresponds to? Describe with one or two sentences what you hear from the interpolated songs. What does this imply about the original signal? 
+
+\vspace{2mm}
+\item Now change this to $N=25$. What do you hear?
+
+\vspace{2mm}
+\item Now try $N=50$ and $N=100$. Qualitatively describe what you hear, as well as the difference between the linear interpolation and the sinc interpolation for each.
+
+\end{enumerate}
+
+\vspace{5mm}
+\item Textbook 4.19. The D/C system is the ideal lowpass filter reconstruction system. 
+
+\vspace{2mm}In addition to answering the question in the text, suppose that this signal is a signal transmitted for communications purposes, and we know exactly its band is from $\frac{2}{3} \Omega_0$ to $\Omega_0$ and $-\Omega_0$ to $-\frac{2}{3} \Omega_0$. Because we know that, we can reconstruct with an ideal \emph{bandpass} filter; call the output of such a system $\widetilde{x}_r(t)$. Give the range of values for T for which $\widetilde{x}_r(t) = x_c(t)$.
+
+\vspace{5mm}
+\item Textbook 4.27
+
+\vspace{5mm} 
+\item Textbook 4.53 %4.59 3rd edition
+
+ 
+\vspace{5mm}
+\item \textbf{10 points extra credit}  Read the one-page history of the sampling theorem, \texttt{sampling\_thm\_history.pdf} under Resources on CTools. Choose one mathematician who discovered the Sampling Theorem, read his wikipedia page, and write down two facts about that person that you find interesting. 
+
+\end{enumerate}
+
+%\begin{enumerate}
+%\item (20 points) OSB 4.7 multipath problem, 
+%
+%\item osb 4.5?
+%
+%\item osb 4.19 with sparse frequency sampling added
+%
+%\item osb 4.27
+%
+%
+%\item interpolation and aliasing with audio files
+%
+%\item osb 4.52, 4.53, 4.55, ...
+%
+%\end{enumerate}
+
+
+\end{document}

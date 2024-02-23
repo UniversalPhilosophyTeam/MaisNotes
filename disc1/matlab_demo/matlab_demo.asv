@@ -1,0 +1,147 @@
+%% Introduction to Matlab
+% Mai Le
+% 09-04-13
+
+
+%% Declaring variables
+keyboard;
+x = 2
+abc_123 = 0.005
+% 1ab = 2
+y = 'eecs451' % string
+eecs_451_is_fun = true % boolean
+
+% Comments are preceded by '%'
+% Semicolons supress output
+
+
+radius = 5/3;
+circ = 2*pi*radius
+eps
+inf
+NaN 
+i % very useful!
+j 
+realmin
+realmax
+
+%% Relational Operators
+4 < 4
+4 <= 4
+x = 6;
+y = 3;
+x > y
+x >= y
+z = 3;
+y == z
+y ~= z % not != like in C
+
+% Use logical operators to combine boolean expressions
+% not
+~eecs_451_is_fun
+% and
+(x >= y) & (y == z)
+% or
+(x < y) | (y == z)
+
+%% Matrices
+% scalars
+x = 23
+u = 7/4 + 0.3*i
+
+% row vectors
+y = [12, 10, 3] 
+v = [12 10 3] 
+
+% column vector
+z = [12; 10; 3] 
+w = y' 
+
+% Extracting elements of vectors 
+% Indexing begins at 1, not 0!
+y(3)
+y(end)
+y(1)
+% y(0)
+
+% Matrices
+
+X = [1 2 3; 4 5 6; 7 8 9]
+X(2,3)
+X(1,end)
+% X(3,0)
+
+X13 = X(3,1:3)
+X22 = X(1:2,2:3)
+X21 = X(1:2,1)
+
+%%
+X(4,2) = pi
+X1 = [1 2; 3 4]
+X2 = [5 6; 7 8]
+Y = repmat(X,2,2)
+Z1 = [X1; X2]
+Z2 = [X1 X2]
+
+%% Matrix Operations
+
+Y1 = X1 + 5;
+Y2 = X1 + X2;
+
+Y1 = X1*X2;
+Y2 = X1.*X2;
+
+Z1 = X1.^2;
+Z2 = X1^2;
+Z3 = X1.^X2;
+Z4 = X1./X2;
+Z5 = X1/X2;
+
+% other ways to construct matrices
+% zeros
+% ones
+% eye
+% rand
+% randn
+% diag
+
+% other matrix functions
+% diag
+% size
+% length
+% det
+% inv
+% BACKSLASH??
+% eig
+% rank
+% find
+
+% abs
+% sign
+% sin
+% cos
+% asin
+% acos
+% exp
+% log, log10
+% ceil, floor
+% round
+% real
+% image
+% sort
+
+% sum
+% prod
+% max
+% min
+% mean
+% median
+% std
+% var
+
+%
+
+
+
+% help is a useful tool! 
+

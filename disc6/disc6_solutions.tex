@@ -1,0 +1,112 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                 
+\usepackage[parfill]{parskip}        
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{1,1,1}
+
+\begin{document}
+{\small
+\section*{Problems for Discussion 6, 10/30/13}
+Compiled by Mai Le
+}
+
+\section{CTFT of a Dirac Comb}
+
+Derive the following CTFT pair:
+
+\[
+s(t) = \sum_{n=-\infty}^\infty \delta(t-nT) \leftrightarrow S(\Omega) = \frac{2 \pi}{T} \sum_{k=-\infty}^\infty \delta(\Omega - k\Omega_s),\ \Omega_s = \frac{2\pi}{T}
+\]
+
+{\color{blue}
+Will be published later...
+}
+
+\section{Noble Identities}
+
+Downsampling by $M$ followed by a filter $H(\omega)$ is equivalent to what, followed by downsampling?
+
+\[
+(\downarrow M)H(\omega) = \underline{\hspace{2cm}} (\downarrow M)
+\]
+
+{\color{blue}
+Consider input $x[n]$. Let $x_1[n]$ be the $M$-downsampled $x[n]$ and $x_2[n]$ be the output of $x[n]$ through the mystery block, and $y_1[n]$ be the output of the first system (filtered $x_1[n]$) and $y_2[n]$ be the output of the second system ($M$-downsampled $x_2[n]$.
+
+Then $X_1(\omega) = \frac{1}{M} \sum_{i=0}^{M-1}X(\frac{\omega}{M} - \frac{2 \pi i}{M})$ and $Y_1(\omega) = X_1(\omega)H(\omega) = \frac{1}{M} H(\omega) \sum_{i=0}^{M-1}X(\frac{\omega}{M} - \frac{2 \pi i}{M}$.
+
+$Y_2(\omega) = \frac{1}{M} \sum_{i=0}^{M-1}X_2(\frac{\omega}{M} - \frac{2 \pi i}{M}) = \frac{1}{M} \sum_{i=0}^{M-1}X(\frac{\omega}{M} - \frac{2 \pi i}{M}) \cdot ? (\frac{\omega}{M} - \frac{2 \pi i}{M})$. Therefore, we need to have the unknown filter be $H(M\omega)$ so that $\frac{1}{M} \sum_{i=0}^{M-1} ? (\frac{\omega}{M} - \frac{2 \pi i}{M}) = H(\omega)$.
+
+}
+
+Filtering, then upsampling by $L$ is equivalent to upsampling by $L$ and then what?
+
+\[
+H(\omega)(\uparrow L) = (\uparrow L) \underline{\hspace{2cm}}
+\]
+
+{\color{blue}
+Note that upsampling here denotes zero-insertion upsampling. Consider input $x[n]$. Let $x_1[n]$ be the output of $x[n]$ through $H(\omega)$, $x_2[n]$ be $L$-upsampled $x[n]$, and $y_1[n]$ be the output of the first system ($L$-upsampled $x_1[n]$) and $y_2[n]$ be the output of the mystery second system.
+
+Then $X_1(\omega)=X(\omega)H(\omega)$ and $Y_1(\omega) = X_1(L\omega) = X(L\omega)H(L\omega)$.
+
+Then $X_2(\omega) = X(L\omega)\cdot ?(\omega)$. The blank should be $H(L\omega)$. 
+}
+
+\section{Circular Convolution}
+
+Let $x_1[n] = \begin{cases} 1, & 0 \leq n \leq 19 \\
+0, & otherwise
+\end{cases}$ and $x_2[n] = \begin{cases} 1, & 0 \leq n \leq 4 \\
+0, & otherwise
+\end{cases}$. 
+
+Determine and sketch (a) the linear convolution $x_1[n]*x_2[n]$, (b) the 20-point circular convolution, $x_1[n]\circledast x_2[n]$ and (c) the 25-point circular convolution $x_1[n]\circledast x_2[n]$.
+
+{\color{blue}
+
+\begin{description}
+\item[(a)] $x_1[n]*x_2[n] = \{\underline{1},2, 3, 4, 5, \ldots  (14\ 5s) \ldots, 4,3,2, 1 \} $ The linear convolution has length 24 (length of $x_1$ + length $x_2$ - 1).
+\item[(b)] $x_1[n]\circledast x_2[n] = \{\underline{5}, 5, \ldots, 5$  with a length of 20. The length of the circular convolution is shorter than that of the linear convolution, so we see aliasing in the time domain. The trapezoids overlap and result in a constant value.
+\item[(c)] $x_1[n]\circledast x_2[n] = \{\underline{1},2, 3, 4, 5, \ldots  (14\ 5s) \ldots, 4,3,2, 1, 0 \}$ Since the length of the linear convolution was long enough, we do not see any aliasing!
+\end{description}
+}
+
+\newpage 
+\section{DFS and Fundamental Period}
+O\&S 8.2
+
+Suppose $\tilde{x}[n]$ is a periodic sequence with period $N$. Then $\tilde{x}[n]$ is also periodic with period $3N$. Let $\tilde{X}[k]$ denote the DFS coefficients of $\tilde{x}[n]$ considered as a periodic sequence with period $N$ and let $\tilde{X}_3[k]$ denote the DFS coefficients of $\tilde{x}[n]$ as considered as a periodic sequence with period $3N$. Express $\tilde{X}_3[k]$ in terms of $\tilde{X}[k]$.
+
+Verify your result for $x[n]=\{\underline{1},2,1,2,...\}$, with $N=2$.
+
+{\color{blue}
+\begin{description}
+\item[(a)] $\tilde{X}_3[k]=\begin{cases} 3\tilde{X}[k/3], & \text{ for }k = 3l\\0, & \text{ otherwise } \end{cases} $
+\item[(b)] $\tilde{X}[k]=\begin{cases} 3, & k = 0 \\-1, & k = 1 \end{cases} $ \quad 
+$\tilde{X}_3[k]=\begin{cases} 9, & k = 0 \\ 0, & k =1,2,4,5 \\-3, & k =3 \end{cases} $
+\end{description}
+}
+
+
+%\section{Recursive Filter Banks}
+
+{\color{blue}
+
+}
+
+\end{document}

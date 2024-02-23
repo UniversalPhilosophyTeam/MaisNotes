@@ -1,0 +1,331 @@
+% major update 8/4/11
+% typo fixes 12/5/11
+% --------------------------------------------------------------------------
+%\documentclass[onecolumn,11pt]{ieeetran}
+\documentclass[]{siamltex}
+\usepackage{graphics,stfloats,amssymb,amsmath,amsfonts,epsfig}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{hyperref}
+\usepackage{verbatim}
+%\usepackage[named]{algo}
+
+% Example definitions
+% -------------------
+\def\x{{\mathbf x}}
+\def\L{{\cal L}}
+\def\half{\frac{1}{2}}
+\def\alphamax{\alpha_{\mbox{\tiny max}}}
+\def\alphamin{\alpha_{\mbox{\tiny min}}}
+
+
+% more useful abbreviations
+% -------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\btheta}{\mbox{\boldmath $\theta$}}
+\newcommand{\bgamma}{\mbox{\boldmath $\gamma$}}
+\newcommand{\bbeta}{\mbox{\boldmath  $\beta$}}
+\newcommand{\balpha}{\mbox{\boldmath $\alpha$}}
+\newcommand{\bDelta}{\mbox{\boldmath $\Delta$}}
+\newcommand{\bdelta}{\mbox{\boldmath $\delta$}}
+\newcommand{\bPsi}{\mbox{\boldmath   $\Psi$}}
+\newcommand{\bphi}{\mbox{\boldmath   $\phi$}}
+\newcommand{\bpi}{\mbox{\boldmath    $\pi$}}
+\newcommand{\btau}{\mbox{\boldmath   $\tau$}}
+\newcommand{\blambda}{\mbox{\boldmath $\lambda$}}
+\newcommand{\bTheta}{\mbox{\boldmath $\Theta$}}
+\newcommand{\bone}{\mbox{\boldmath   $1$}}
+\newcommand{\Loewner}[0]{\preceq}
+\newcommand{\Hessmat}{{\cal H}}
+\newcommand{\Bmat}{{\bf B}}
+\newcommand{\Amat}{{\bf A}}
+\newcommand{\bx}{{\bf x}}
+\newcommand{\gradv}{{\bf g}}
+\newcommand{\cG}{{\cal G}}
+\newcommand{\cS}{{\cal S}}
+\newcommand{\cT}{{\cal T}}
+\newcommand{\trace}{\mbox{\rm trace}}
+\newcommand{\tv}{\tilde{v}}
+\newcommand{\gammaC}{\gamma_C}
+
+\def\noprint#1{}
+\def\swcomment#1{{\em [SW: #1]}}
+\def\dmcomment#1{{\em [DM: #1]}}
+\def\swresolved#1{}
+\def\dmresolved#1{}
+\def\sparsa{SpaRSA\ }
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\beq{\begin{equation}}
+\def\eeq{\end{equation}}
+\def\eqnok#1{(\ref{#1})}
+
+% theorem environments
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{corollary}[theorem]{Corollary}
+
+% baselinestretch definition is important!!
+% \renewcommand{\baselinestretch}{1.565}
+
+% \ninept
+
+% Title.
+% ------
+\title{EECS 451 Fall 2013 EXAM 2 \hspace{1.2cm} NOVEMBER 19}
+
+\begin{document}
+%\ninept
+%
+\maketitle
+This exam is closed-book. You are allowed two notes pages, $8.5 \times 11$, front and back. You must be able to read the page without any technology (e.g. magnifying devices). You are also given the DTFT, DFS, and DFT tables from the book at the end of these exam papers.
+
+\vspace{4mm} \textbf{Please justify your answers; No credit will be given without justification.} Write neatly and \fbox{put a box around your final answer,} unless the answer is a proof or unless otherwise specified. Notice the point values on each problem-- \textbf{the total is 90 points}. Most importantly: good luck!!
+
+\vspace{1cm}
+Print name: \makebox[3in]{\hrulefill} 
+
+\vspace{4mm}
+Grad or Undergrad (circle one)
+
+\vspace{4mm}
+HONOR CODE PLEDGE:
+``I have neither given nor received aid on this exam, nor have I
+concealed any violations of the honor code."
+
+\vspace{4mm}
+Sign the pledge: \makebox[3in]{\hrulefill} 
+\vspace{1cm}
+
+\newpage
+\begin{enumerate}
+\item (10 points, 5 points each sub-part.) The continuous-time signal $$x_c(t) = \sin(30 \pi t ) + \cos (180 \pi t)$$ is sampled with a sampling period $T$ to obtain the discrete-time signal $$x[n] = \sin\left(\frac{\pi n}{12}\right) + \cos\left(\frac{\pi n}{2}\right)\;.$$ 
+% OSB 2nd edition 4.4
+
+\vspace{5mm} 
+\begin{enumerate}
+\item Determine a choice for $T$ consistent with this information. 
+
+\vspace{1cm} 
+\textbf{Solution.} $T = \frac{1}{360}$.
+
+\vspace{2cm}
+\item Is your choice for $T$ in Part (a) unique? If so, explain why. If not, specify another choice of $T$ consistent with the information given.
+
+\vspace{1cm} 
+\textbf{Solution.} It's not unique because $$\sin\left(\frac{\pi n}{12}\right) = \sin \left(\frac{\pi n}{12} + 2\pi k n\right) = \sin \left( \left(\frac{1}{12} + 2 k\right) \pi n\right)  $$ for any integer $k$ and 
+$$\cos\left(\frac{\pi n}{2}\right) = \cos\left(\frac{\pi n}{2} + 2\pi m n\right) = \cos\left( \left( \frac{1}{2} + 2m\right) \pi n \right)$$ for any integer $m$. Therefore we could find any other $T'$ that satisfies $$30 T' = \frac{1}{12} + 2k \quad \text{ and } 180 T' = \frac{1}{2} + 2m$$ simultaneously, where we get to pick $k$ and $m$ such that this is possible. We can do this for any $k$ and $m$ such that $$\frac{1}{360} + \frac{2k}{30} = \frac{1}{360}+\frac{2m}{180} \implies 6k=m\;.$$ So choosing $k=1$, $m=6$ we get $$T' = \frac{25}{360}\;.$$
+
+
+\end{enumerate}
+
+
+\newpage
+\item (20 points total, see point values below.) The given sequence $x_1[n]$ is periodic with period $N=5$. We would like to convolve it with the $h[n]$ given. 
+\vspace{4mm}
+
+ \includegraphics[width=0.43\textwidth]{x1}  \includegraphics[width=0.43\textwidth]{h}
+
+
+\begin{enumerate} 
+\item (5 points) What is the result of the length-$N=5$ periodic convolution between these two sequences?
+
+\textbf{Solution.} 
+
+Let $y_a[n]$ be the $N=5$ periodic convolution of $x_1[n]$ and $h[n]$. 
+
+Periodic convolution for $N=5$ is defined (Eqn. 8.27) as 
+
+\[ y_a[n] = \sum_{m=0}^4 \tilde{x}_1[m] \tilde{h}[n-m] = \sum_{m=0}^4 \tilde{h}[m] \tilde{x}_1[n-m]\]
+
+where $\tilde{x}_1[n]$ is the periodized version of $x_1[n]$ with period of 5. In this case, $\tilde{x}_1[n] = x_1[n]$. Likewise, $\tilde{h}[n]$ is the periodized version of $h[n]$,
+
+\[ \tilde{h}[n] = \begin{cases} 1,& n\text{ mod }5 = 0,2\\
+3,& n\text{ mod }5=1\\ 0,& otherwise \end{cases} \]
+
+Then we can plug this into the definition:
+
+\begin{align*}
+y_a[n] &= \tilde{h}[0] \tilde{x}_1[n] + \tilde{h}[1] \tilde{x}_1[n-1] + \tilde{h}[2] \tilde{x}_1[n-2] \\ 
+&= x_1[n] + 3 x_1[n-1] + x_1[n-2] \\
+&= \{\ldots, \underline{2}, 1, 1, 1, 1, \ldots\} \\
+& + \{\ldots, \underline{3}, 6, 3, 3, 3, \ldots\} \\
+& + \{\ldots, \underline{1}, 1, 2, 1, 1, \ldots\} \\
+&= \{\ldots, \underline{6}, 8, 6, 5, 5, \ldots\} \\
+\end{align*}
+
+More explicitly, 
+
+\[ y_a[n] = \begin{cases} 6,& n \text{ mod }5= 0,2 \\
+8, & n  \text{ mod }5=1 \\
+5, & n  \text{ mod }5 = 3,4  \end{cases}\]
+Note that $y_1[n]$ is a periodic sequence with period $N=5$.
+
+
+\item (5 points) Now consider $x_2[n]$, which is zero for all indices not shown. What is the result of the length-$N=5$ circular convolution of $x_2[n]$ and $h[n]$?
+
+\includegraphics[width=0.45\textwidth]{x2}
+
+
+\textbf{Solution.} 
+
+Let $y_b[n]$ be the $N=5$ circular convolution of $x_2[n]$ and $h[n]$. 
+
+Circular convolution for $N=5$ is defined (Eqn. 8.112) as 
+
+\[ y_bn] = \sum_{m=0}^4 \tilde{x}_1[m] \tilde{h}[n-m] = \sum_{m=0}^4 \tilde{h}[m] \tilde{x}_1[n-m] \qquad 0 \leq n \neq 4\]
+
+Because it is only defined for $0 \leq n \leq N-1$, circular convolution is same as one period of the periodic convolution.
+
+\[ y_b[n] = \{\underline{6},8,6,5,5\}. \]
+
+More explicitly,
+
+\[ y_b[n] = \begin{cases} 6,& n= 0,2 \\
+8, & n =1 \\
+5, & n = 3,4 \\
+0, & otherwise \end{cases} \]
+
+
+\newpage
+\item (10 points) Now consider that we would like to implement the following LTI system, where $H(\omega)$ is the DTFT of $h[n]$ given above.
+
+$$x_2[n]  \rightarrow \fbox{$H(\omega)$} \rightarrow y_2[n]\;.$$
+
+Instead we need to implement it on a computer, so we'll use the DFT as follows.
+
+$$x_2[n] \rightarrow  \fbox{M-point DFT}  \rightarrow \fbox{$G[k]$}\rightarrow  \fbox{M-point IDFT}  \rightarrow y_2[n]\;.$$
+
+\begin{enumerate} 
+\item Describe what we must do to $x_2[n]$ and/or $h[n]$ to guarantee that $$y_2[n] = x_2[n]*h[n],$$ 
+
+i.e. the output is the linear convolution of $x_2[n]$ and  $h[n]$.
+
+\textbf{Solution.} 
+
+
+To have the circular convolution ($y_2[n]$) equal the linear convolution, the length of the circular convolution (which is also the length of the DFT) must be at least as long as the length of the linear convolution. The length of linear convolution is $\text{length}(x_2[n]) + \text{length}(h[n]) - 1 = 5 + 3 -1 = 7$, so we must have $M \geq 7$. To achieve this, we should zero-pad both $x_2[n]$ and $h[n]$ to length of 7.
+
+
+\item What is the minimum value $M$ can be to guarantee we get the linear convolution?
+
+
+\textbf{Solution.} 
+
+7. See above.
+
+
+\item Suppose we took $M=10$. In this case, describe how $G[k]$ relates to $H[k]$, the $N=5$-point DFT of $h[n]$. (You do not have to solve for $H[k]$ and $G[k]$ explicitly, just describe how they relate.)
+
+
+\textbf{Solution.} 
+
+Remember that the DFT is samples of the DTFT. So some of the values in $G[k]$ coincide with the values in $H[k]$.
+
+\begin{align*}
+G[k] & = H(\omega)\big|_{\omega = \frac{2 \pi k}{10}} \\
+H[k] & = H(\omega)\big|_{\omega = \frac{2 \pi k}{5}} \\
+& = H(\omega)\big|_{\omega = \frac{2 \pi (2k)}{10}} = G[2k]
+\end{align*}
+
+In other words, $H[k]$ are the even samples of $G[k]$. Knowing $G[k]$ tells us $H[k]$ without any additional computation.
+
+\end{enumerate}
+\end{enumerate}
+
+
+
+\newpage
+\item (15 points total, see point values below) Consider the systems shown below. Suppose that $H_1(\omega)$ is fixed and known. 
+% OSB 2nd edition 4.29, GATech PS 7 solutions
+
+$$x_1[n] \rightarrow \fbox{$\uparrow 2$} \rightarrow v[n]  \rightarrow \fbox{$H_1(\omega)$}  \rightarrow q[n]\rightarrow \fbox{$\downarrow 2$} \rightarrow y_1[n]\;,$$
+
+$$x_2[n] \rightarrow \fbox{$H_2(\omega)$} \rightarrow y_2[n]\;.$$
+
+\vspace{3mm} Remember that \fbox{$\uparrow M$} means we insert $M-1$ zeros between samples and \fbox{$\downarrow M$} means we take every $M^{th}$ sample.
+
+\vspace{3mm} 
+\begin{enumerate}
+\item (5 points) What is $V(\omega)$ in terms of $X_1(\omega)$? What is $Q(\omega)$ in terms of $X_1(\omega)$ and $H_1(\omega)$?
+
+\vspace{1cm} 
+\textbf{Solution.} $V(\omega) = X_1(2\omega)$. $Q(\omega) = V(\omega) H_1(\omega) = X_1(2\omega) H_1(\omega)$.
+
+
+\vspace{2cm} \item (10 points) Find $H_2(\omega)$, the frequency response of an LTI system, such that $y_1[n] = y_2[n]$ when $x_1[n] = x_2[n]$ (in other words, the outputs are the same when the inputs are the same).
+
+\vspace{1cm} 
+\textbf{Solution.} $Y_1(\omega) = \frac{1}{2} \left( Q\left(\frac{\omega}{2}\right) + Q\left(\frac{\omega}{2} + \pi\right) \right)$. So that means we have 
+\begin{align*}
+Y_1(\omega) &= \frac{1}{2} \left[ X_1\left(2\frac{\omega}{2}\right)  H_1\left(\frac{\omega}{2}\right)   +  X_1\left(2\left(\frac{\omega}{2}+\pi\right)\right)  H_1\left(\frac{\omega}{2} + \pi\right)  \right] \\
+&= \frac{1}{2} \left[ X_1(\omega)  H_1\left(\frac{\omega}{2}\right)   +  X_1(\omega + 2\pi)  H_1\left(\frac{\omega}{2} + \pi\right)  \right] \\
+&= \frac{1}{2} \left(  H_1\left(\frac{\omega}{2}\right)   +  H_1\left(\frac{\omega}{2} + \pi\right)  \right) X_1(\omega) 
+\end{align*} because $X_1(\omega + 2\pi)  = X_1(\omega)$. Therefore, we should take $$H_2(\omega) = \frac{1}{2} \left(  H_1\left(\frac{\omega}{2}\right)   +  H_1\left(\frac{\omega}{2} + \pi\right) \right)\;.$$
+
+
+\end{enumerate}
+
+
+
+\newpage
+\item (15 points) For the FFT, we learned how to break a length-8 DFT into two DFTs of length-4. Use the same approach to show how you could break a length-12 DFT into three DFTs of length-4. 
+
+\vspace{1cm}
+\textbf{Solution.} A length-12 DFT is as follows. $$X[k] = \sum_{n=0}^{N-1} x[n] e^{\frac{-j2\pi kn}{N}} = \sum_{k=0}^{11} x[n] W_{12}^{kn} \;.$$ For two DFTs, we split this into every other index. Now we will split into every third index: 
+
+\begin{align*}
+\sum_{k=0}^{11} x[n] W_{12}^{kn} &= \sum_{n=0, 3, 6...} x[n] W_{12}^{kn} + \sum_{n=1, 4, 7...} x[n] W_{12}^{kn} + \sum_{n=2, 5, 8...} x[n] W_{12}^{kn} \\
+&= \sum_{n=0}^3 x[3n] W_{12}^{k(3n)} + \sum_{n=0}^3 x[3n+1] W_{12}^{k(3n+1)} + \sum_{n=0}^3 x[3n+2] W_{12}^{k(3n+2)} \\
+&= \sum_{n=0}^3 x[3n] W_{4}^{kn} + \sum_{n=0}^3 x[3n+1] W_{4}^{kn} W_{12}^{k} + \sum_{n=0}^3 x[3n+2] W_{4}^{kn} W_{12}^{2k}\\
+&= \sum_{n=0}^3 x[3n] W_{4}^{kn} +W_{12}^{k}  \sum_{n=0}^3 x[3n+1] W_{4}^{kn} + W_{12}^{2k}\sum_{n=0}^3 x[3n+2] W_{4}^{kn} \;.
+\end{align*}
+
+As you can see, the result is that we do 3 DFTs of length-4, weighting the second by $W_{12}^{k} = e^{\frac{-j2\pi kn}{12}}$ and the third by $W_{12}^{2k} = e^{\frac{-j2\pi kn}{6}}$.
+
+
+
+
+\newpage
+
+\item (30 points total, plus 5 points extra credit, see point values below.) 
+% OSB 4.38 2nd edition, Solution in SP05_PS7_soln of GA Tech
+\begin{enumerate}
+\item (12 points) Consider the following system. $$x_c(t)  \rightarrow \fbox{C/D with period $T$}  \rightarrow x[n] \rightarrow \fbox{$\uparrow L$}  \rightarrow v[n] \rightarrow \fbox{$H(\omega)$} \rightarrow q[n] $$
+
+The filter $H(\omega)$ is defined as $$H(\omega) = \left\{ \begin{matrix} 1, & |\omega| < \pi/L \\ 0 , & \pi/L < |\omega| < \pi\end{matrix} \right. \;.$$
+
+$X_c(\Omega)$ is given in this figure. What do $V(\omega)$ and $Q(\omega)$ look like? Draw them on a plot with clear labels of the axes, the locations where the signal touches the x-axis, and the height of the signal.
+
+\includegraphics{osb4382}
+
+\textbf{Solution.}
+
+\includegraphics[height = 0.5\textheight]{5a.png} 
+
+\newpage
+\item (18 points) Now continue the system from part (a) as follows, where $q[n]$ is the output of the system in part (a).
+
+$$q[n] \rightarrow \fbox{Modulator} \rightarrow y[n] \rightarrow  \fbox{D/C with period $T' = T/L$} \rightarrow y_c(t)$$
+
+
+The box labeled ``Modulator'' takes the input sequence $w[n]$ and multiplies it by $(-1)^n$: $$y[n] = (-1)^n q[n]\;.$$ Draw $Y(\omega)$, the DTFT of $y[n]$, and $Y_c(\Omega)$, the CTFT of $y_c(t)$. Again be sure to clearly label the axes, locations where the signal touches the x-axis, and the height of the signal.
+\textbf{Solution.}
+
+\includegraphics[height = 0.6\textheight]{5b.png} 
+
+\item (5 points, extra credit) Can we swap the modulator with our LTI filter $H(\omega)$ and still get the same overall system? Why or why not?
+\end{enumerate}
+
+\textbf{Solution.} If the modulator were LTI, we could freely interchange it with the the filter $H(\omega)$ which is LTI. However, the modulator shifts the frequency spectrum. For odd values of $L$, $V(\omega) \neq V(\omega - \pi)$. The low pass filter would then select the central frequencies, which would swap the high and low frequency components of the signal compared to the original system.
+
+
+
+
+
+
+\end{enumerate}
+
+
+\end{document}

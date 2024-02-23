@@ -1,0 +1,70 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                 
+\usepackage[parfill]{parskip}        
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{1,1,1}
+
+\begin{document}
+{\small
+\section*{Problems for Discussion 6, 10/30/13}
+Compiled by Mai Le
+}
+
+\section{CTFT of a Dirac Comb}
+
+Derive the following CTFT pair:
+
+\[
+s(t) = \sum_{n=-\infty}^\infty \delta(t-nT) \leftrightarrow S(\Omega) = \frac{2 \pi}{T} \sum_{k=-\infty}^\infty \delta(\Omega - k\Omega_s),\ \Omega_s = \frac{2\pi}{T}
+\]
+
+\section{Noble Identities}
+
+Downsampling by $M$ followed by a filter $H(\omega)$ is equivalent to what, followed by downsampling?
+
+\[
+(\downarrow M)H(\omega) = \underline{\hspace{2cm}} (\downarrow M)
+\]
+
+Filtering, then upsampling by $L$ is equivalent to upsampling by $L$ and then what?
+
+\[
+H(\omega)(\uparrow L) = (\uparrow L) \underline{\hspace{2cm}}
+\]
+
+\section{Circular Convolution}
+
+Let $x_1[n] = \begin{cases} 1, & 0 \leq n \leq 19 \\
+0, & otherwise
+\end{cases}$ and $x_2[n] = \begin{cases} 1, & 0 \leq n \leq 4 \\
+0, & otherwise
+\end{cases}$. 
+
+Determine and sketch (a) the linear convolution $x_1[n]*x_2[n]$, (b) the 20-point circular convolution, $x_1[n]\circledast x_2[n]$ and (c) the 25-point circular convolution $x_1[n]\circledast x_2[n]$.
+
+\newpage 
+\section{DFS and Fundamental Period}
+O\&S 8.2
+
+Suppose $\tilde{x}[n]$ is a periodic sequence with period $N$. Then $\tilde{x}[n]$ is also periodic with period $3N$. Let $\tilde{X}[k]$ denote the DFS coefficients of $\tilde{x}[n]$ considered as a periodic sequence with period $N$ and let $\tilde{X}_3[k]$ denote the DFS coefficients of $\tilde{x}[n]$ as considered as a periodic sequence with period $3N$. Express $\tilde{X}_3[k]$ in terms of $\tilde{X}[k]$.
+
+Verify your result for $x[n]=\{\underline{1},2,1,2,...\}$, with $N=2$.
+
+%\section{Recursive Filter Banks}
+
+
+\end{document}

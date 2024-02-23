@@ -1,0 +1,152 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                 
+\usepackage[parfill]{parskip}        
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{1,1,1}
+
+
+\begin{document}
+
+\section*{Review of Topics for Discussion 1, 09/11/13}
+Mai Le
+% $x[n]$ can refer to a sequence or a value
+
+%\section{What is a signal? What is a system?}
+
+%focus on discrete signals and discrete-domain systems
+
+\section{Properties of Discrete Signals}
+
+\subsection{Periodicity}
+As signal $x[n]$ is periodic if there exists a number $n_0$ such that $x[n]=x[n-n_0]$ for all $n$. The period of the signal is $n_0$.
+
+For sinusoidal functions (i.e. $cos\left(\omega n + \phi\right)$), the function is periodic iff $\omega$ is a rational multiple of $\pi$, i.e. $\omega = \frac{M}{N}\pi$ for integers $M$ and $N$.
+
+\subsection{Boundedness}
+A signal is bounded if there exists a positive, finite number $B$ such that $|x[n]|  \leq B$ for all $n$. 
+
+\subsection{Causality}
+A signal $x[n]$ is causal if $x[n]=0$ for $n<0$.
+
+\subsection{Symmetry}
+A signal $x[n]$ is symmetric if $x[n] = x[-n]$. Signals with symmetry are also called "even".
+
+If instead a signal has the property that $-x[n] = x[-n]$, then it is called "odd".
+
+
+\section{Properties of Discrete-Domain Systems}
+
+\subsection{Causality}
+A system $\mathcal{T}$ is causal if $y=[n_0]=\mathcal{T}\{x[n]\}$ depends only on $x[n]$ for $n \leq n_0$. In other words, it depends only on the present and past values of $x[n]$ and not the future values.
+
+\subsection{Linearity}
+A system $\mathcal{T}$ is linear iff for any inputs $x_1[n]$ and $x_2[n]$ and any scalars $a_1$ and $a_2$, $\mathcal{T}\{a_1x_1[n]+a_2x_2[n]\} = a_1\mathcal{T}\{x_1[n]\}+a_2\mathcal{T}\{x_2[n]\}$. 
+
+\subsection{Shift-Invariance (a.k.a. Time-Invariance)}
+Let $y[n] = \mathcal{T}\{x[n]\}$. Then the system $\mathcal{T}$ is shift-invariant if $\mathcal{T}\{x[n-n_0]\} = y[n-n_0]$. In other words, the output of the delayed signal is the same as the delay of the output signal.
+
+\subsection{Bounded Input Bounded Output (BIBO) Stability}
+A system $\mathcal{T}$ is called BIBO stable if any bounded input signal $x[n]$ results in a bounded output signal $y[n]$. If a bound $B_x$ exists for bounded $x[n]$, then there exists a bound $B_y$ such that $|y[n]|=|\mathcal{T}\{x[n]\}| \leq B_y$ for all $n$.
+
+\section{Kronecker Delta (a.k.a. Delta Sequence, Unit Sample Sequence)}
+
+$\delta[n] = \begin{cases}1, & n = 0 \\ 0, & n\neq 0 \end{cases}$
+
+\subsection{Decomposition of Discrete Signals with Shifted Deltas}
+Any sequence $x[n]$ can be written as $x[n]=\sum\limits_{k=-\infty}^\infty x[k]\delta[n-k]$
+
+\subsection{Sampling Property}
+$\delta[n-n_0]x[n] = \delta[n-n_0]x[n_0]$
+
+note: The result is a sequence!
+
+\subsection{Sifting Property}
+$\sum\limits_{n=-\infty}^\infty \delta[n-n_0]x[n] = x[n_0]$
+
+note: The result is a scalar!
+
+\subsection{Scaling Property}
+$\delta[2n]=\delta[n]$ Note that there is no scaling factor!
+
+\section{Dirac Delta (a.k.a. Unit Impulse Function)}
+
+A loose definition:
+
+$\delta(t) = \begin{cases} +\infty,& t = 0 \\ 0, & t \neq 0 \end{cases}$ \quad  s.t. $\int_{-\infty}^\infty \delta(t) dt = 1$.
+
+
+A more precise definition:
+
+$\delta(t) = \lim\limits_{\Delta\rightarrow 0} \frac{1}{\Delta} rect(\frac{t}{\Delta})$
+
+\subsection{Decomposition of Continuous Signals with Shifted Deltas}
+Any continuous-domain function $x(t)$ can be written as $x(t)=\int\limits_{-\infty}^\infty x(\tau)\delta(t-\tau)d\tau$
+
+\subsection{Sampling Property}
+$\delta(t-t_0)x(t) = \delta(t-t_0)x(t_0)$
+
+note: The result is a function!
+
+\subsection{Sifting Property}
+$\int\limits_{-\infty}^\infty \delta(t-t_0)x(t) = x(t_0)$
+
+note: The result is a scalar!
+
+\subsection{Scaling Property}
+
+$\delta(\alpha t)= \frac{1}{|\alpha|} \delta(t)$ for any scalar $\alpha$
+
+\subsection{Kronecker vs. Dirac}
+
+What's the deal with these different delta functions? 
+
+The Kronecker delta, denoted $\delta[n]$, is a sequence indexed over a discrete domain, in other words, $n \in \mathbb{Z}$. The Dirac delta, denoted $\delta(t)$ or drawn as an upward pointing arrow, is a function over a continuous domain, in other words $t \in \mathbb{R}$. In this class, we're dealing exclusively with discrete-time signals, so in the time domain, we'll have Kronecker deltas. However, when we take the DTFT of a discrete-time signal, we get a result in the continuous frequency domain ($\omega$), so if we have an impulse in the continuous frequency domain, it will be a Dirac delta, $\delta(\omega)$.
+
+Spiritually, these functions are the same though. 
+
+$\delta(t) = 0$ for all $t \neq 0$, and $\delta[n] = 0$ for all $n \neq 0$. 
+$\int_{-\infty}^\infty \delta(t) dt = 1$ and $\sum\limits_{n=-\infty}^\infty \delta[n] = 1$.
+
+\section{Complex Numbers and Euler's Formula}
+A complex number $z$ can be represented as $z=a+jb$ or as $z=re^{j\theta}$. The magnitude and phase are related to $a$ and $b$: $r=\sqrt{a^2+b^2}$ and $tan(\theta)=\frac{b}{a}$.
+
+Euler's formula:
+$e^{j\theta} = cos(\theta)+jsin(\theta)$
+
+
+which you can use to derive these other useful equations:
+
+$cos(x) = \frac{1}{2} \left[e^{j x} + e^{-j x} \right]$
+
+$sin(x) = \frac{1}{2j} \left[e^{j x} - e^{-j x} \right]$
+
+Other equivalences you should get comfortable with:
+\begin{itemize}
+	\item $e^{\frac{\pi}{2} j} = j$
+	\item $e^{\pi j} = -1$ Fun fact: this equation is known as Euler's Identity and is renowned for its mathematical beauty. 
+	\item $e^{-\frac{\pi}{2} j} = e^{\frac{3\pi}{2} j} = -j$
+\end{itemize}
+
+Note: you can also easily remember these values by imagining the unit circle on the real vs. imaginary plane. $e^{\frac{-\pi}{2} j}$ is the value of the unit circle at angle $\frac{-\pi}{2}$ radians, which is along the negative imaginary axis, so the value is $-j$.
+
+%\section{Convolution}
+%
+%\section{Miscellany}
+%
+%In class, she mentioned carrier frequency modulation as a motivation for ideal filters. Want to discuss IQ demodulation?
+
+\end{document}

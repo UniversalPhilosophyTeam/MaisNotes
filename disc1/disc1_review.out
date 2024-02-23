@@ -1,0 +1,19 @@
+\BOOKMARK [1][-]{section.1}{What is a signal? What is a system?}{}% 1
+\BOOKMARK [1][-]{section.2}{Properties of Discrete Signals}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Periodicity}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Boundedness}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Causality}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Symmetry}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Properties of Discrete-Domain Systems}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Causality}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Linearity}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Shift-Invariance \(a.k.a. Time-Invariance\)}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Bounded Input Bounded Output \(BIBO\) Stability}{section.3}% 11
+\BOOKMARK [1][-]{section.4}{Kronecker Delta \(a.k.a. Delta Sequence, Unit Sample Sequence\)}{}% 12
+\BOOKMARK [2][-]{subsection.4.1}{Decomposition of Discrete Signals with Shifted Deltas}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.2}{Sampling Property}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.3}{Sifting Property}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.4}{Scaling Property}{section.4}% 16
+\BOOKMARK [1][-]{section.5}{Complex Numbers}{}% 17
+\BOOKMARK [1][-]{section.6}{Convolution}{}% 18
+\BOOKMARK [1][-]{section.7}{Miscellany}{}% 19

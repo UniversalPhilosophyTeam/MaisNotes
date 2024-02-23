@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                 
+\usepackage[parfill]{parskip}        
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{gensymb}
+\usepackage[T1]{fontenc}
+\usepackage[hang,small]{caption}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{1,1,1}
+\lstset{
+	backgroundcolor=\color{lbcolor},
+	tabsize=4,
+	rulecolor=,
+	language=matlab,
+	basicstyle= \scriptsize,
+	upquote=true,
+	aboveskip={1.5\baselineskip},
+	columns=fixed,
+        	showstringspaces=false,
+        	extendedchars=true,
+        	breaklines=true,
+        	prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        	frame=single,
+        	showtabs=false,
+        	showspaces=false,
+        	showstringspaces=false,
+        	identifierstyle=\ttfamily,
+        	keywordstyle=\color[rgb]{0,0,1},
+        	commentstyle=\color[rgb]{0.133,0.545,0.133},
+        	stringstyle=\color[rgb]{0.627,0.126,0.941},
+}
+
+
+\begin{document}
+
+\section*{EECS351 Discussion 1, 09/8/16}
+Nate Sawicki
+% $x[n]$ can refer to a sequence or a value
+
+\section{What is a signal? What is a system?}
+
+focus on discrete signals and discrete-domain systems
+
+\section{Properties of Discrete Signals}
+
+\subsection{Periodicity}
+As signal $x[n]$ is periodic if there exists a number $n_0$ such that $x[n]=x[n-n_0]$ for all $n$. The period of the signal is $n_0$.
+
+For sinusoidal functions (i.e. $cos\left(\omega n + \phi\right)$), the function is periodic iff $\omega$ is a rational multiple of $\pi$, i.e. $\omega = \frac{M}{N}\pi$ for integers $M$ and $N$.
+
+\subsection{Boundedness}
+A signal is bounded if there exists a positive, finite number $B$ such that $|x[n]|  \leq B$ for all $n$. 
+
+\subsection{Causality}
+A signal $x[n]$ is causal if $x[n]=0$ for $n<0$.
+
+\subsection{Symmetry}
+A signal $x[n]$ is symmetric if $x[n] = x[-n]$. Signals with symmetry are also called "even".
+
+If instead a signal has the property that $-x[n] = x[-n]$, then it is called "odd".
+
+
+\section{Properties of Discrete-Domain Systems}
+
+\subsection{Causality}
+A system $\mathcal{T}$ is causal if $\mathcal{T}\{x[n]\}$ depends only on $x[n]$ for $n < 0$. In other words, it depends only on the present and past values of $x[n]$ and not the future values.
+
+\subsection{Linearity}
+A system $\mathcal{T}$ is linear iff for any inputs $x_1[n]$ and $x_2[n]$ and any scalars $a_1$ and $a_2$, $\mathcal{T}\{a_1x_1[n]+a_2x_2[n]\} = a_1\mathcal{T}\{x_1[n]\}+a_2\mathcal{T}\{x_2[n]\}$. 
+
+\subsection{Shift-Invariance (a.k.a. Time-Invariance)}
+Let $y[n] = \mathcal{T}\{x[n]\}$. Then the system $\mathcal{T}$ is shift-invariant if $\mathcal{T}\{x[n-n_0]\} = y[n-n_0]$. In other words, the output of the delayed signal is the same as the delay of the output signal.
+
+\subsection{Bounded Input Bounded Output (BIBO) Stability}
+A system $\mathcal{T}$ is called BIBO stable if any bounded input signal $x[n]$ results in a bounded output signal $y[n]$. If a bound $B_x$ exists for bounded $x[n]$, then there exists a bound $B_y$ such that $|y[n]|=|\mathcal{T}\{x[n]\}| \leq B_y$ for all $n$.
+
+\section{Kronecker Delta (a.k.a. Delta Sequence, Unit Sample Sequence)}
+
+$\delta[n] = \begin{cases}1, & n = 0 \\ 0, & n\neq 0 \end{cases}$
+
+\subsection{Decomposition of Discrete Signals with Shifted Deltas}
+Any sequence $x[n]$ can be written as $x[n]=\sum\limits_{k=-\infty}^\infty x[k]\delta[n-k]$
+
+\subsection{Sampling Property}
+$\delta[n-n_0]x[n] = \delta[n-n_0]x[n_0]$
+
+\subsection{Sifting Property}
+$\sum\limits_{n=-\infty}^\infty \delta[n-n_0]x[n] = x[n_0]$
+
+\subsection{Scaling Property}
+$\delta[2n]=\delta[n]$ Note that there is no scaling factor!
+
+\section{Complex Numbers}
+
+\section{Convolution}
+
+\section{Miscellany}
+
+In class, she mentioned carrier frequency modulation as a motivation for ideal filters. Want to discuss IQ demodulation?
+
+\end{document}

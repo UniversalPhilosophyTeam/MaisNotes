@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                 
+\usepackage[parfill]{parskip}        
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{1,1,1}
+
+\begin{document}
+
+\section*{Problems for Discussion 3, 09/25/13}
+Compiled by Mai Le, some problems from Prof. Yagle, Prof. Fessler
+
+\section{Using DTFT Properties}
+% Yagle hmwk 5, #5
+
+Let $x[n] = \{1,4,3,2,5,7,\underline{-45},7,5,2,3,4,1\}$. Let $X(\omega)=DTFT(x[n])$. Compute the following without actually computing $X(\omega)$. Use DTFT properties!
+
+\subsection{(a) $X(\pi)$}
+
+%{\color{black}
+%$X(\pi)=\sum\limits_{n=-\infty}^\infty x[n]e^{-j\pi n} = \sum\limits_{n=-\infty}^\infty x[n](-1)^n$
+%
+%$ = 1-4+3-2+5-7+-45-7+5-2+3-4+1 = -53$.
+%}
+
+\subsection{(b) arg$X(\omega)$}
+
+%{\color{black}
+%$x[n] = x[-n]$ so $X(w) = X^*
+%}
+
+\subsection{(c) $\int_{-\pi}^\pi X(\omega) d\omega$}
+
+%{\color{black}
+%$\int_{-\pi}^\pi X(\omega) d\omega = \int_{-\pi}^\pi \sum\limits_{n=-\infty}^\infty x[n]e^{-j\omega n} d\omega = \sum\limits_{n=-\infty}^\infty x[n]  \int_{-\pi}^\pi e^{-j\omega n} d\omega$
+%
+%$ = \sum\limits_{n=-\infty}^\infty x[n]  \left(\frac{1}{-j\omega n}e^{-j\omega n} \big|_{\omega=-\pi}^{\pi}  \right) = \sum\limits_{n=-\infty}^\infty x[n]  \left(\frac{-2}{j\omega n}(-1)^n \right) $
+%
+%IS THIS RIGHT
+%}
+
+
+\subsection{(d) $\int_{-\pi}^\pi |X(\omega)|^2 d\omega$}
+
+%{\color{black}
+%
+%Use Parseval's Theorem!
+%
+%Parseval's: $\sum\limits_{n=-\infty}^\infty |x[n]|^2 = \frac{1}{2\pi} \int_{-\pi}^\pi |X(\omega)|^2 d\omega$.
+%
+%So, $\int_{-\pi}^\pi |X(\omega)|^2 d\omega = 2\pi \sum\limits_{n=-\infty}^\infty |x[n]|^2$
+%
+%
+%$ = 2\pi  \left(1^2+4^2+3^2+2^2+5^2+7^2 +(-45)^2+7^2+5^2+2^2+3^2+4^2+1^2 \right) = 4466 \pi$
+%
+%}
+
+\section{Computing the Z-Transform}
+Compute the z-transform and the corresponding ROCs of the following sequences.
+
+\subsection*{(a) $x[n]=\left(\frac{1}{5}\right)^nu[n]$}
+% Yagle disc 4, #1
+
+%{\color{black}
+%From $a^nu[n] \rightarrow \frac{z}{z-a}$, we get $(1/5)^nu[n] \rightarrow \frac{z}{z-1/5}$.
+%
+%ROC: $|z| > |a| = 1/5$
+%}
+
+\subsection*{(b) $x[n]=2^nu[-n]+\left(\frac{1}{3}\right)^nu[n]$}
+% Yagle disc 4, #1
+
+%{\color{black}
+%From $-a^nu[-n-1] \rightarrow \frac{z}{z-a}$, and manipulating $2^nu[-n]=2\cdot 2^{n-1}u[-(n-1)-1]$, we get $2^nu[-n] \rightarrow -\frac{2z}{z-2}z^{-1}=-\frac{1}{z-2}$. ROC: $|z| < |a| = 2$.
+%
+%From $a^nu[n] \rightarrow \frac{z}{z-a}$, we get $(1/3)^nu[n] \rightarrow \frac{z}{z-1/3}$. ROC: $|z| > |a| = 1/3$
+%
+%$X(z) = \frac{z}{z-1/3}-\frac{1}{z-2}$.
+%
+%ROC: $1/3 < |z| < 2$.
+%}
+
+\subsection*{(c) $x[n]=\{-1,\underline{0},1\}$}
+% Yagle disc 4, #1
+
+%{\color{black}
+%$X(z)=-1\cdot z+0\cdot 1 + 1\cdot z^{-1} = -z+z^{-1}$
+%
+%ROC is all but origin
+%}
+
+%\subsection*{$x[n]= \{1,3,\underline{4}\} $}
+% Yagle hmwk 3, #1
+
+%\subsection*{$x[n]= (2^n+1)u[n]$}
+% Yagle hmwk 3, #1
+
+%\subsection*{$x[n]= \left(\frac{1}{3}\right)^nu[n]+2^nu[-n-1]$}
+% Yagle hmwk 3, #1
+
+%\subsection*{$x[n]= 3^nu[n]+\left(\frac{1}{2}\right)^nu[-n-1]$}
+% Yagle hmwk 3, #1
+
+%\subsection*{$x[n]= (1+n)u[n]$}
+% Fessler, hmwk 3, #2
+
+%\subsection*{$x[n]= cos\left(\frac{\pi}{2}n-\frac{\pi}{3}\right)u[n-3]+\delta[n-2]u[n]$}
+%% Fessler, hmwk 3, #2
+%Don't use decimals for this one! Draw pole-zero plot.
+%
+%{\color{black}
+%
+%}
+
+\subsection*{(d) $x[n]= \sum_{k=-\infty}^n3^ku[n]$}
+% Fessler, hmwk 3, #2
+
+%{\color{black}
+%
+%}
+
+\section{Z-Transform Manipulation}
+Express the z-transform of $y[n]=\sum\limits_{k=-\infty}^nx[k]$ in terms of $X(z)$.
+
+%{\color{black}
+%\begin{eqnarray*}
+%y[n] &=&x[n]+x[n-1]+\cdots \\
+%Y(z) &=& X(z)+z^{-1}X(z)+ \cdots \\
+%&=& \frac{X(z)}{1-z^{-1}} \text{ if } |z| > 1 \\
+%\end{eqnarray*}
+%
+%ROC: ROC of x $\cap \{|z| > 1\}$
+%}
+
+\section{Inverse z-transform strategies}
+
+Consider the z-transform $X(z) = \frac{1+2z^{-1}+z^{-2}}{1-\frac{3}{2}z^{-1}+\frac{1}{2}z^{-2}}$. We can rewrite $X(z)$ into a friendlier form $X(z) = B(z) + \frac{A_1}{D_1} +\frac{A_2}{D_2}$, where $B(z)$, $A_1(z)$, $A_2(z)$, $D_1(z)$, and $D_2(z)$ are polynomials of $z$ (or rather $z^{-1}$). 
+
+Use long division to find $B(z)$ and partial fraction expansion to find the remaining $A_1(z)$, $A_2(z)$, $D_1(z)$, and $D_2(z)$.
+
+\end{document}

@@ -1,0 +1,5 @@
+figure; plot(t,y)
+grid on;
+ylabel('Attention');
+close
+diary off
